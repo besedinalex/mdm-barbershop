@@ -32,6 +32,7 @@ namespace BarbershopMDM
             services.AddDbContext<DataContext>();
             services.AddScoped<ISuppliersRepository, SuppliersRepository>();
             services.AddScoped<IConsumablesRepository, ConsumablesRepository>();
+            services.AddScoped<IEmployeesRepository, EmployeesRepository>();
             ServiceProvider = services.BuildServiceProvider();
         }
     }

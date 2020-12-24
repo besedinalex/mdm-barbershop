@@ -160,7 +160,9 @@
   <ItemGroup>
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\Repositories\ConsumablesRepository.cs" />
+    <Compile Include="Data\Repositories\EmployeesRepository.cs" />
     <Compile Include="Data\Repositories\IConsumablesRepository.cs" />
+    <Compile Include="Data\Repositories\IEmployeesRepository.cs" />
     <Compile Include="Data\Repositories\ISuppliersRepository.cs" />
     <Compile Include="Data\Repositories\SuppliersRepository.cs" />
     <Compile Include="Form1.cs">

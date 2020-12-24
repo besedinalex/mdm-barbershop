@@ -19,6 +19,10 @@ namespace BarbershopMDM.Data.Repositories
             _context.Employees.FirstOrDefaultAsync(x => x.Id == employeeId);
 
         /// <inheritdoc />
+        public Task<Employee> GetEmployee(string login) =>
+            _context.Employees.FirstOrDefaultAsync(x => x.Login == login);
+
+        /// <inheritdoc />
         public Task<List<Employee>> GetEmployees() =>
             _context.Employees.ToListAsync();
 

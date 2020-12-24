@@ -121,6 +121,12 @@ namespace BarbershopMDM.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Employees_Login",
+                table: "Employees",
+                column: "Login",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderContents_ConsumablesId",
                 table: "OrderContents",
                 column: "ConsumablesId");

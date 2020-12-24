@@ -64,6 +64,9 @@ namespace BarbershopMDM.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("Login")
+                        .IsUnique();
+
                     b.ToTable("Employees");
                 });
 

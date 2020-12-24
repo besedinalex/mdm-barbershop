@@ -11,6 +11,11 @@ namespace BarbershopMDM.Data.Repositories
         /// <returns>Returns employee.</returns>
         Task<Employee> GetEmployee(int employeeId);
 
+        /// <summary>Gets employee.</summary>
+        /// <param name="login">Login of the employee.</param>
+        /// <returns>Returns employee.</returns>
+        Task<Employee> GetEmployee(string login);
+
         /// <summary>Gets all employees.</summary>
         /// <returns>Returns all employees.</returns>
         Task<List<Employee>> GetEmployees();

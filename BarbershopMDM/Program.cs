@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BarbershopMDM.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +18,12 @@ namespace BarbershopMDM
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            using (var db = new DataContext())
+            {
+                db.Database.Migrate();
+            }
+            
             Application.Run(new Form1());
         }
     }

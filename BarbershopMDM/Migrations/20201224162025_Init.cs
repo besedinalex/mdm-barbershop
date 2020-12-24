@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BarbershopMDM.Migrations
 {
@@ -59,7 +60,9 @@ namespace BarbershopMDM.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     EmployeeId = table.Column<int>(nullable: false),
                     SupplierId = table.Column<int>(nullable: false),
-                    Cost = table.Column<int>(nullable: false)
+                    Cost = table.Column<int>(nullable: false),
+                    TimeCreated = table.Column<DateTime>(nullable: false),
+                    TimeCompleted = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BarbershopMDM.Models
 {
@@ -15,6 +16,10 @@ namespace BarbershopMDM.Models
         public Supplier Supplier { get; set; }
 
         public int Cost { get; set; }
+
+        public DateTime TimeCreated { get; set; }
+
+        public DateTime TimeCompleted { get; set; }
 
         public ICollection<OrderContent> OrderContents { get; set; }
     }

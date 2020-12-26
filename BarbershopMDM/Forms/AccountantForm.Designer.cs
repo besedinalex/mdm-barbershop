@@ -55,6 +55,8 @@ namespace BarbershopMDM.Forms
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxSupplierName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.buttonAddConsumablesToOrder = new System.Windows.Forms.Button();
+            this.buttonAddSupplierToOrder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsumables)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownConsumablesAmount)).BeginInit();
@@ -81,8 +83,9 @@ namespace BarbershopMDM.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.numericUpDownConsumablesAmount);
+            this.groupBox1.Controls.Add(this.buttonAddConsumablesToOrder);
             this.groupBox1.Controls.Add(this.buttonRemoveConsumables);
+            this.groupBox1.Controls.Add(this.numericUpDownConsumablesAmount);
             this.groupBox1.Controls.Add(this.buttonEditConsumables);
             this.groupBox1.Controls.Add(this.buttonCancelConsumables);
             this.groupBox1.Controls.Add(this.label3);
@@ -113,7 +116,7 @@ namespace BarbershopMDM.Forms
             // 
             // buttonRemoveConsumables
             // 
-            this.buttonRemoveConsumables.Location = new System.Drawing.Point(168, 227);
+            this.buttonRemoveConsumables.Location = new System.Drawing.Point(281, 227);
             this.buttonRemoveConsumables.Name = "buttonRemoveConsumables";
             this.buttonRemoveConsumables.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveConsumables.TabIndex = 15;
@@ -123,7 +126,7 @@ namespace BarbershopMDM.Forms
             // 
             // buttonEditConsumables
             // 
-            this.buttonEditConsumables.Location = new System.Drawing.Point(87, 227);
+            this.buttonEditConsumables.Location = new System.Drawing.Point(200, 227);
             this.buttonEditConsumables.Name = "buttonEditConsumables";
             this.buttonEditConsumables.Size = new System.Drawing.Size(75, 23);
             this.buttonEditConsumables.TabIndex = 16;
@@ -218,6 +221,7 @@ namespace BarbershopMDM.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.buttonAddSupplierToOrder);
             this.groupBox2.Controls.Add(this.numericUpDownORGN);
             this.groupBox2.Controls.Add(this.buttonRemoveSupplier);
             this.groupBox2.Controls.Add(this.buttonEditSupplier);
@@ -250,7 +254,7 @@ namespace BarbershopMDM.Forms
             // 
             // buttonRemoveSupplier
             // 
-            this.buttonRemoveSupplier.Location = new System.Drawing.Point(168, 227);
+            this.buttonRemoveSupplier.Location = new System.Drawing.Point(281, 227);
             this.buttonRemoveSupplier.Name = "buttonRemoveSupplier";
             this.buttonRemoveSupplier.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveSupplier.TabIndex = 15;
@@ -259,7 +263,7 @@ namespace BarbershopMDM.Forms
             // 
             // buttonEditSupplier
             // 
-            this.buttonEditSupplier.Location = new System.Drawing.Point(87, 227);
+            this.buttonEditSupplier.Location = new System.Drawing.Point(200, 227);
             this.buttonEditSupplier.Name = "buttonEditSupplier";
             this.buttonEditSupplier.Size = new System.Drawing.Size(75, 23);
             this.buttonEditSupplier.TabIndex = 16;
@@ -343,6 +347,24 @@ namespace BarbershopMDM.Forms
             this.label6.TabIndex = 7;
             this.label6.Text = "ОГРН";
             // 
+            // buttonAddConsumablesToOrder
+            // 
+            this.buttonAddConsumablesToOrder.Location = new System.Drawing.Point(87, 227);
+            this.buttonAddConsumablesToOrder.Name = "buttonAddConsumablesToOrder";
+            this.buttonAddConsumablesToOrder.Size = new System.Drawing.Size(107, 23);
+            this.buttonAddConsumablesToOrder.TabIndex = 19;
+            this.buttonAddConsumablesToOrder.Text = "Добавить в заказ";
+            this.buttonAddConsumablesToOrder.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddSupplierToOrder
+            // 
+            this.buttonAddSupplierToOrder.Location = new System.Drawing.Point(87, 227);
+            this.buttonAddSupplierToOrder.Name = "buttonAddSupplierToOrder";
+            this.buttonAddSupplierToOrder.Size = new System.Drawing.Size(107, 23);
+            this.buttonAddSupplierToOrder.TabIndex = 20;
+            this.buttonAddSupplierToOrder.Text = "Указать в заказе";
+            this.buttonAddSupplierToOrder.UseVisualStyleBackColor = true;
+            // 
             // AccountantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -397,5 +419,7 @@ namespace BarbershopMDM.Forms
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.NumericUpDown numericUpDownORGN;
         private System.Windows.Forms.NumericUpDown numericUpDownConsumablesAmount;
+        private System.Windows.Forms.Button buttonAddConsumablesToOrder;
+        private System.Windows.Forms.Button buttonAddSupplierToOrder;
     }
 }

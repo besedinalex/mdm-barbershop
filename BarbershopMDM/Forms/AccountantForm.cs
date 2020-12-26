@@ -191,6 +191,7 @@ namespace BarbershopMDM.Forms
 
             var consumablesSelected = selectedRows.Count > 0;
             buttonAddConsumables.Enabled = !consumablesSelected;
+            buttonAddConsumablesToOrder.Enabled = consumablesSelected;
             buttonEditConsumables.Enabled = consumablesSelected;
             buttonRemoveConsumables.Enabled = consumablesSelected;
 
@@ -209,6 +210,7 @@ namespace BarbershopMDM.Forms
 
             var supplierSelected = selectedRows.Count > 0;
             buttonAddSupplier.Enabled = !supplierSelected;
+            buttonAddSupplierToOrder.Enabled = supplierSelected;
             buttonEditSupplier.Enabled = supplierSelected;
             buttonRemoveSupplier.Enabled = supplierSelected;
 

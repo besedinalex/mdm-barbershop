@@ -67,7 +67,9 @@ namespace BarbershopMDM.Forms
 
             var message = "";
             message += name.Length < 3 ? "Поле \"ФИО\" должно содержать минимум 3 символа.\n" : "";
-            message += login.Length < 3 ? "Поле \"Логин\" должно содержать минимум 3 символа.\n" : "";
+            message += login.Length < 3
+                ? "Поле \"Логин\" должно содержать минимум 3 символа.\n"
+                : login.Equals("administrator")? "Логин \"administrator\" недоступен.\n" : "";
             message += password.Length < 8 ? "Поле \"Пароль\" должно содержать минимум 8 символов.\n" : "";
 
             if (!message.Equals(""))

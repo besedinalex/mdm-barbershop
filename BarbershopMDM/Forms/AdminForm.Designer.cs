@@ -34,15 +34,15 @@ namespace BarbershopMDM.Forms
             this.textBoxLogin = new System.Windows.Forms.TextBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.groupBoxUserValues = new System.Windows.Forms.GroupBox();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonEdit = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.comboBoxRole = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonEdit = new System.Windows.Forms.Button();
-            this.buttonRemove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.groupBoxUserValues.SuspendLayout();
             this.SuspendLayout();
@@ -108,6 +108,36 @@ namespace BarbershopMDM.Forms
             this.groupBoxUserValues.TabIndex = 4;
             this.groupBoxUserValues.TabStop = false;
             // 
+            // buttonRemove
+            // 
+            this.buttonRemove.Location = new System.Drawing.Point(246, 124);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(114, 23);
+            this.buttonRemove.TabIndex = 10;
+            this.buttonRemove.Text = "Удалить";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.ButtonRemove_Click);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Location = new System.Drawing.Point(126, 124);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(114, 23);
+            this.buttonEdit.TabIndex = 9;
+            this.buttonEdit.Text = "Изменить";
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.ButtonEdit_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(414, 124);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(114, 23);
+            this.buttonCancel.TabIndex = 8;
+            this.buttonCancel.Text = "Отмена";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
+            // 
             // comboBoxRole
             // 
             this.comboBoxRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -162,36 +192,6 @@ namespace BarbershopMDM.Forms
             this.label1.TabIndex = 2;
             this.label1.Text = "ФИО";
             // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Location = new System.Drawing.Point(414, 124);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(114, 23);
-            this.buttonCancel.TabIndex = 8;
-            this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
-            // 
-            // buttonEdit
-            // 
-            this.buttonEdit.Location = new System.Drawing.Point(126, 124);
-            this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(114, 23);
-            this.buttonEdit.TabIndex = 9;
-            this.buttonEdit.Text = "Изменить";
-            this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.ButtonEdit_Click);
-            // 
-            // buttonRemove
-            // 
-            this.buttonRemove.Location = new System.Drawing.Point(246, 124);
-            this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(114, 23);
-            this.buttonRemove.TabIndex = 10;
-            this.buttonRemove.Text = "Удалить";
-            this.buttonRemove.UseVisualStyleBackColor = true;
-            this.buttonRemove.Click += new System.EventHandler(this.ButtonRemove_Click);
-            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,7 +203,7 @@ namespace BarbershopMDM.Forms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AdminForm";
-            this.Text = "Управление пользователями";
+            this.Text = "ИС Парикмахерская. Управление пользователями";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminForm_FormClosed);
             this.Shown += new System.EventHandler(this.AdminForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).EndInit();

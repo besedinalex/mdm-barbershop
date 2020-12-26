@@ -37,7 +37,7 @@ namespace BarbershopMDM.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "ManagerForm";
-            this.Text = "ManagerForm";
+            this.Text = "ИС Парикмахерская. Администратор";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ManagerForm_FormClosed);
             this.ResumeLayout(false);
 

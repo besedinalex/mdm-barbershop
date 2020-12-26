@@ -20,6 +20,10 @@ namespace BarbershopMDM.Data.Repositories
             _context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
 
         /// <inheritdoc />
+        public Task<List<OrderContent>> GetOrdersContent(int orderId) =>
+            _context.OrderContents.Where(x => x.OrderId == orderId).ToListAsync();
+
+        /// <inheritdoc />
         public Task<List<Order>> GetOrders() =>
             _context.Orders.ToListAsync();
 
@@ -28,8 +32,8 @@ namespace BarbershopMDM.Data.Repositories
             _context.Orders.Where(x => x.EmployeeId == employeeId).ToListAsync();
 
         /// <inheritdoc />
-        public Task<List<OrderContent>> GetOrdersContent(int orderId) =>
-            _context.OrderContents.Where(x => x.OrderId == orderId).ToListAsync();
+        public Task<List<OrderContent>> GetOrderContentsWithConsumables(int consumablesId) =>
+            _context.OrderContents.Where(x => x.ConsumablesId == consumablesId).ToListAsync();
 
         /// <inheritdoc />
         public async Task<int> CreateOrder(Order order)

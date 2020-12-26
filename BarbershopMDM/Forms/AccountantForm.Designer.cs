@@ -31,18 +31,20 @@ namespace BarbershopMDM.Forms
         {
             this.dataGridViewConsumables = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxConsumablesAmount = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxConsumablesId = new System.Windows.Forms.TextBox();
-            this.textBoxConsumablesName = new System.Windows.Forms.TextBox();
-            this.buttonAddConsumables = new System.Windows.Forms.Button();
+            this.numericUpDownConsumablesAmount = new System.Windows.Forms.NumericUpDown();
             this.buttonRemoveConsumables = new System.Windows.Forms.Button();
             this.buttonEditConsumables = new System.Windows.Forms.Button();
             this.buttonCancelConsumables = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonAddConsumables = new System.Windows.Forms.Button();
+            this.textBoxConsumablesId = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxConsumablesName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownORGN = new System.Windows.Forms.NumericUpDown();
             this.buttonRemoveSupplier = new System.Windows.Forms.Button();
             this.buttonEditSupplier = new System.Windows.Forms.Button();
             this.buttonCancelSupplier = new System.Windows.Forms.Button();
@@ -50,15 +52,15 @@ namespace BarbershopMDM.Forms
             this.dataGridViewSuppliers = new System.Windows.Forms.DataGridView();
             this.buttonAddSupplier = new System.Windows.Forms.Button();
             this.textBoxSupplierNumber = new System.Windows.Forms.TextBox();
-            this.textBoxOGRN = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxSupplierName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsumables)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownConsumablesAmount)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownORGN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSuppliers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,16 +77,17 @@ namespace BarbershopMDM.Forms
             this.dataGridViewConsumables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewConsumables.Size = new System.Drawing.Size(469, 124);
             this.dataGridViewConsumables.TabIndex = 1;
+            this.dataGridViewConsumables.SelectionChanged += new System.EventHandler(this.DataGridViewConsumables_SelectionChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.numericUpDownConsumablesAmount);
             this.groupBox1.Controls.Add(this.buttonRemoveConsumables);
             this.groupBox1.Controls.Add(this.buttonEditConsumables);
             this.groupBox1.Controls.Add(this.buttonCancelConsumables);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.dataGridViewConsumables);
             this.groupBox1.Controls.Add(this.buttonAddConsumables);
-            this.groupBox1.Controls.Add(this.textBoxConsumablesAmount);
             this.groupBox1.Controls.Add(this.textBoxConsumablesId);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxConsumablesName);
@@ -96,6 +99,48 @@ namespace BarbershopMDM.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Расходные материалы";
             // 
+            // numericUpDownConsumablesAmount
+            // 
+            this.numericUpDownConsumablesAmount.Location = new System.Drawing.Point(107, 201);
+            this.numericUpDownConsumablesAmount.Maximum = new decimal(new int[] {
+            1316134911,
+            2328,
+            0,
+            0});
+            this.numericUpDownConsumablesAmount.Name = "numericUpDownConsumablesAmount";
+            this.numericUpDownConsumablesAmount.Size = new System.Drawing.Size(368, 20);
+            this.numericUpDownConsumablesAmount.TabIndex = 18;
+            // 
+            // buttonRemoveConsumables
+            // 
+            this.buttonRemoveConsumables.Location = new System.Drawing.Point(168, 227);
+            this.buttonRemoveConsumables.Name = "buttonRemoveConsumables";
+            this.buttonRemoveConsumables.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemoveConsumables.TabIndex = 15;
+            this.buttonRemoveConsumables.Text = "Удалить";
+            this.buttonRemoveConsumables.UseVisualStyleBackColor = true;
+            this.buttonRemoveConsumables.Click += new System.EventHandler(this.ButtonRemoveConsumables_Click);
+            // 
+            // buttonEditConsumables
+            // 
+            this.buttonEditConsumables.Location = new System.Drawing.Point(87, 227);
+            this.buttonEditConsumables.Name = "buttonEditConsumables";
+            this.buttonEditConsumables.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditConsumables.TabIndex = 16;
+            this.buttonEditConsumables.Text = "Изменить";
+            this.buttonEditConsumables.UseVisualStyleBackColor = true;
+            this.buttonEditConsumables.Click += new System.EventHandler(this.ButtonEditConsumables_Click);
+            // 
+            // buttonCancelConsumables
+            // 
+            this.buttonCancelConsumables.Location = new System.Drawing.Point(400, 227);
+            this.buttonCancelConsumables.Name = "buttonCancelConsumables";
+            this.buttonCancelConsumables.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancelConsumables.TabIndex = 17;
+            this.buttonCancelConsumables.Text = "Отмена";
+            this.buttonCancelConsumables.UseVisualStyleBackColor = true;
+            this.buttonCancelConsumables.Click += new System.EventHandler(this.ButtonCancelConsumables_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -105,32 +150,15 @@ namespace BarbershopMDM.Forms
             this.label3.TabIndex = 11;
             this.label3.Text = "Кол-во на складе";
             // 
-            // textBoxConsumablesAmount
+            // buttonAddConsumables
             // 
-            this.textBoxConsumablesAmount.Location = new System.Drawing.Point(107, 201);
-            this.textBoxConsumablesAmount.MaxLength = 56;
-            this.textBoxConsumablesAmount.Name = "textBoxConsumablesAmount";
-            this.textBoxConsumablesAmount.PasswordChar = '*';
-            this.textBoxConsumablesAmount.Size = new System.Drawing.Size(368, 20);
-            this.textBoxConsumablesAmount.TabIndex = 10;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 178);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Наименование";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 152);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(26, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Код";
+            this.buttonAddConsumables.Location = new System.Drawing.Point(6, 227);
+            this.buttonAddConsumables.Name = "buttonAddConsumables";
+            this.buttonAddConsumables.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddConsumables.TabIndex = 11;
+            this.buttonAddConsumables.Text = "Добавить";
+            this.buttonAddConsumables.UseVisualStyleBackColor = true;
+            this.buttonAddConsumables.Click += new System.EventHandler(this.ButtonAddConsumables_Click);
             // 
             // textBoxConsumablesId
             // 
@@ -142,49 +170,31 @@ namespace BarbershopMDM.Forms
             this.textBoxConsumablesId.Size = new System.Drawing.Size(368, 20);
             this.textBoxConsumablesId.TabIndex = 6;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 178);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Наименование";
+            // 
             // textBoxConsumablesName
             // 
             this.textBoxConsumablesName.Location = new System.Drawing.Point(107, 175);
-            this.textBoxConsumablesName.MaxLength = 20;
+            this.textBoxConsumablesName.MaxLength = 200;
             this.textBoxConsumablesName.Name = "textBoxConsumablesName";
             this.textBoxConsumablesName.Size = new System.Drawing.Size(368, 20);
             this.textBoxConsumablesName.TabIndex = 8;
             // 
-            // buttonAddConsumables
+            // label1
             // 
-            this.buttonAddConsumables.Location = new System.Drawing.Point(6, 227);
-            this.buttonAddConsumables.Name = "buttonAddConsumables";
-            this.buttonAddConsumables.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddConsumables.TabIndex = 11;
-            this.buttonAddConsumables.Text = "Добавить";
-            this.buttonAddConsumables.UseVisualStyleBackColor = true;
-            // 
-            // buttonRemoveConsumables
-            // 
-            this.buttonRemoveConsumables.Location = new System.Drawing.Point(168, 227);
-            this.buttonRemoveConsumables.Name = "buttonRemoveConsumables";
-            this.buttonRemoveConsumables.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemoveConsumables.TabIndex = 15;
-            this.buttonRemoveConsumables.Text = "Удалить";
-            this.buttonRemoveConsumables.UseVisualStyleBackColor = true;
-            // 
-            // buttonEditConsumables
-            // 
-            this.buttonEditConsumables.Location = new System.Drawing.Point(87, 227);
-            this.buttonEditConsumables.Name = "buttonEditConsumables";
-            this.buttonEditConsumables.Size = new System.Drawing.Size(75, 23);
-            this.buttonEditConsumables.TabIndex = 16;
-            this.buttonEditConsumables.Text = "Изменить";
-            this.buttonEditConsumables.UseVisualStyleBackColor = true;
-            // 
-            // buttonCancelConsumables
-            // 
-            this.buttonCancelConsumables.Location = new System.Drawing.Point(400, 227);
-            this.buttonCancelConsumables.Name = "buttonCancelConsumables";
-            this.buttonCancelConsumables.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancelConsumables.TabIndex = 17;
-            this.buttonCancelConsumables.Text = "Отмена";
-            this.buttonCancelConsumables.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 152);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(26, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Код";
             // 
             // panel1
             // 
@@ -197,8 +207,18 @@ namespace BarbershopMDM.Forms
             this.panel1.Size = new System.Drawing.Size(992, 496);
             this.panel1.TabIndex = 6;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(3, 265);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(968, 497);
+            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Заказы";
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.numericUpDownORGN);
             this.groupBox2.Controls.Add(this.buttonRemoveSupplier);
             this.groupBox2.Controls.Add(this.buttonEditSupplier);
             this.groupBox2.Controls.Add(this.buttonCancelSupplier);
@@ -206,7 +226,6 @@ namespace BarbershopMDM.Forms
             this.groupBox2.Controls.Add(this.dataGridViewSuppliers);
             this.groupBox2.Controls.Add(this.buttonAddSupplier);
             this.groupBox2.Controls.Add(this.textBoxSupplierNumber);
-            this.groupBox2.Controls.Add(this.textBoxOGRN);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.textBoxSupplierName);
             this.groupBox2.Controls.Add(this.label6);
@@ -216,6 +235,18 @@ namespace BarbershopMDM.Forms
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Поставщики";
+            // 
+            // numericUpDownORGN
+            // 
+            this.numericUpDownORGN.Location = new System.Drawing.Point(95, 149);
+            this.numericUpDownORGN.Maximum = new decimal(new int[] {
+            1316134911,
+            2328,
+            0,
+            0});
+            this.numericUpDownORGN.Name = "numericUpDownORGN";
+            this.numericUpDownORGN.Size = new System.Drawing.Size(380, 20);
+            this.numericUpDownORGN.TabIndex = 0;
             // 
             // buttonRemoveSupplier
             // 
@@ -266,6 +297,7 @@ namespace BarbershopMDM.Forms
             this.dataGridViewSuppliers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewSuppliers.Size = new System.Drawing.Size(469, 124);
             this.dataGridViewSuppliers.TabIndex = 1;
+            this.dataGridViewSuppliers.SelectionChanged += new System.EventHandler(this.DataGridViewSuppliers_SelectionChanged);
             // 
             // buttonAddSupplier
             // 
@@ -284,14 +316,6 @@ namespace BarbershopMDM.Forms
             this.textBoxSupplierNumber.PasswordChar = '*';
             this.textBoxSupplierNumber.Size = new System.Drawing.Size(380, 20);
             this.textBoxSupplierNumber.TabIndex = 10;
-            // 
-            // textBoxOGRN
-            // 
-            this.textBoxOGRN.Location = new System.Drawing.Point(95, 149);
-            this.textBoxOGRN.MaxLength = 200;
-            this.textBoxOGRN.Name = "textBoxOGRN";
-            this.textBoxOGRN.Size = new System.Drawing.Size(380, 20);
-            this.textBoxOGRN.TabIndex = 6;
             // 
             // label5
             // 
@@ -319,15 +343,6 @@ namespace BarbershopMDM.Forms
             this.label6.TabIndex = 7;
             this.label6.Text = "ОГРН";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Location = new System.Drawing.Point(3, 265);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(968, 497);
-            this.groupBox3.TabIndex = 7;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Заказы";
-            // 
             // AccountantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -340,12 +355,15 @@ namespace BarbershopMDM.Forms
             this.Name = "AccountantForm";
             this.Text = "ИС Парикмахерская. Бухгалтер";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AccountantForm_FormClosed);
+            this.Shown += new System.EventHandler(this.AccountantForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsumables)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownConsumablesAmount)).EndInit();
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownORGN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSuppliers)).EndInit();
             this.ResumeLayout(false);
 
@@ -356,7 +374,6 @@ namespace BarbershopMDM.Forms
         private System.Windows.Forms.DataGridView dataGridViewConsumables;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxConsumablesAmount;
         private System.Windows.Forms.TextBox textBoxConsumablesId;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxConsumablesName;
@@ -374,10 +391,11 @@ namespace BarbershopMDM.Forms
         private System.Windows.Forms.DataGridView dataGridViewSuppliers;
         private System.Windows.Forms.Button buttonAddSupplier;
         private System.Windows.Forms.TextBox textBoxSupplierNumber;
-        private System.Windows.Forms.TextBox textBoxOGRN;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxSupplierName;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.NumericUpDown numericUpDownORGN;
+        private System.Windows.Forms.NumericUpDown numericUpDownConsumablesAmount;
     }
 }

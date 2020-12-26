@@ -163,6 +163,12 @@ namespace BarbershopMDM.Migrations
                 table: "Suppliers",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_OGRN",
+                table: "Suppliers",
+                column: "OGRN",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

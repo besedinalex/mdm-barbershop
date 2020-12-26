@@ -191,9 +191,9 @@
     <Compile Include="Forms\ManagerForm.Designer.cs">
       <DependentUpon>ManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20201224170528_Init.cs" />
-    <Compile Include="Migrations\20201224170528_Init.designer.cs">
-      <DependentUpon>20201224170528_Init.cs</DependentUpon>
+    <Compile Include="Migrations\20201226143545_Init.cs" />
+    <Compile Include="Migrations\20201226143545_Init.designer.cs">
+      <DependentUpon>20201226143545_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DataContextModelSnapshot.cs" />
     <Compile Include="Models\Consumables.cs" />

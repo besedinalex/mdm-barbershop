@@ -152,6 +152,9 @@ namespace BarbershopMDM.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("OGRN")
+                        .IsUnique();
+
                     b.ToTable("Suppliers");
                 });
 

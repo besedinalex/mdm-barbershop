@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarbershopMDM.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201224170528_Init")]
+    [Migration("20201226143545_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,6 +152,9 @@ namespace BarbershopMDM.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("OGRN")
                         .IsUnique();
 
                     b.ToTable("Suppliers");

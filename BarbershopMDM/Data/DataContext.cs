@@ -35,6 +35,10 @@ namespace BarbershopMDM.Data
                 .HasIndex(x => x.Id)
                 .IsUnique();
 
+            modelBuilder.Entity<Supplier>()
+                .HasIndex(x => x.OGRN)
+                .IsUnique();
+
             modelBuilder.Entity<Consumables>()
                 .HasIndex(x => x.Id)
                 .IsUnique();

@@ -12,9 +12,13 @@ namespace BarbershopMDM.Forms
 {
     public partial class AccountantForm : Form
     {
-        public AccountantForm()
+        private readonly int _currentUserId;
+
+        public AccountantForm(int userId)
         {
             InitializeComponent();
+
+            _currentUserId = userId;
         }
 
         private void AccountantForm_FormClosed(object sender, FormClosedEventArgs e)

@@ -42,7 +42,7 @@ namespace BarbershopMDM.Forms
             {
                 case "accountant":
                     Hide();
-                    new AccountantForm().ShowDialog();
+                    new AccountantForm(user.Id).ShowDialog();
                     break;
                 case "manager":
                     Hide();

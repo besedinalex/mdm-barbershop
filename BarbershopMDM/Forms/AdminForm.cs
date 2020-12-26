@@ -14,6 +14,7 @@ namespace BarbershopMDM.Forms
     public partial class AdminForm : Form
     {
         private readonly IEmployeesRepository _employeesRepository;
+        private int _selectedUserId;
 
         public AdminForm()
         {
@@ -22,61 +23,69 @@ namespace BarbershopMDM.Forms
             InitializeComponent();
 
             dataGridViewUsers.RowHeadersVisible = false;
-            dataGridViewUsers.ColumnCount = 3;
+            dataGridViewUsers.ColumnCount = 5;
             dataGridViewUsers.Columns[0].HeaderText = "ФИО";
             dataGridViewUsers.Columns[1].HeaderText = "Логин";
             dataGridViewUsers.Columns[2].HeaderText = "Должность";
             dataGridViewUsers.Columns[1].Width = 110;
             dataGridViewUsers.Columns[2].Width = 90;
-
-            UpdateDataGridView();
-
+            dataGridViewUsers.Columns[3].Visible = false;
+            dataGridViewUsers.Columns[4].Visible = false;
+            
             comboBoxRole.Items.AddRange(new string[] { "Бухгалтер", "Администратор" });
             comboBoxRole.SelectedIndex = 0;
         }
 
-        private async void UpdateDataGridView()
+        private async Task UpdateDataGridView()
         {
-            dataGridViewUsers.Rows.Clear();
             var users = await _employeesRepository.GetEmployees();
+            dataGridViewUsers.Rows.Clear();
             dataGridViewUsers.Columns[0].Width = users.Count > 3 ? 313 : 330;
             foreach (var user in users)
             {
                 var role = user.Role.Equals("accountant") ? "Бухгалтер" : user.Role.Equals("manager") ? "Администратор" : "Неизвестно";
-                dataGridViewUsers.Rows.Add(new[] { user.Name, user.Login, role });
+                dataGridViewUsers.Rows.Add(new[] { user.Name, user.Login, role, user.Id.ToString(), user.Password });
             }
+            ClearDataGridViewSelection();
         }
 
-        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void ClearDataGridViewSelection()
         {
-            Program.LoginForm.Show();
+            dataGridViewUsers.ClearSelection();
+            dataGridViewUsers.CurrentCell = null;
+            ClearTextBoxes();
+        }
 
-        private async void buttonAdd_Click(object sender, EventArgs e)
+        private void ClearTextBoxes()
         {
-            var name = textBoxName.Text;
-            var login = textBoxLogin.Text;
-            var password = textBoxPassword.Text;
+            textBoxName.Text = "";
+            textBoxLogin.Text = "";
+            textBoxPassword.Text = "";
+        }
+
+        private bool VerifyTextBoxes(out string name, out string login, out string password)
+        {
+            name = textBoxName.Text;
+            login = textBoxLogin.Text;
+            password = textBoxPassword.Text;
 
             var message = "";
+            message += name.Length < 3 ? "Поле \"ФИО\" должно содержать минимум 3 символа.\n" : "";
+            message += login.Length < 3 ? "Поле \"Логин\" должно содержать минимум 3 символа.\n" : "";
+            message += password.Length < 8 ? "Поле \"Пароль\" должно содержать минимум 8 символов.\n" : "";
 
-            if (name.Length < 3)
-            {
-                message += "Поле \"ФИО\" должно содержать минимум 3 символа.\n";
-            }
-
-            if (login.Length < 3)
-            {
-                message += "Поле \"Логин\" должно содержать минимум 3 символа.\n";
-            }
-
-            if (password.Length < 8)
-            {
-                message += "Поле \"Пароль\" должно содержать минимум 8 символов.\n";
-            }
-
-            if (message != "")
+            if (!message.Equals(""))
             {
                 MessageBox.Show(message, "Валидация данных пользователя");
+                return false;
+            }
+            return true;
+        }
+
+        private async void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            if (!VerifyTextBoxes(out var name, out var login, out var password))
+            {
                 return;
             }
 
@@ -88,13 +97,83 @@ namespace BarbershopMDM.Forms
                 Role = comboBoxRole.SelectedIndex == 0 ? "accountant" : "manager"
             };
 
-            await _employeesRepository.CreateEmployee(user);
-            
-            UpdateDataGridView();
+            if (await _employeesRepository.GetEmployee(login) != null)
+            {
+                MessageBox.Show("Пользователь с таким логином уже существует.");
+                return;
+            }
 
-            textBoxName.Text = "";
-            textBoxLogin.Text = "";
-            textBoxPassword.Text = "";
+            await _employeesRepository.CreateEmployee(user);
+            await UpdateDataGridView();
+        }
+
+        private async void ButtonEdit_Click(object sender, EventArgs e)
+        {
+            if (!VerifyTextBoxes(out var name, out var login, out var password))
+            {
+                return;
+            }
+
+            var user = await _employeesRepository.GetEmployee(_selectedUserId);
+            if (!user.Login.Equals(login))
+            {
+                var userByLogin = await _employeesRepository.GetEmployee(login);
+                if (userByLogin != null)
+                {
+                    MessageBox.Show("Пользователь с таким логином уже существует.");
+                    return;
+                }
+                user.Login = login;
+            }
+            user.Name = name;
+            user.Password = password;
+            user.Role = comboBoxRole.SelectedIndex == 0 ? "accountant" : "manager";
+
+            await _employeesRepository.UpdateEmployee(user);
+            await UpdateDataGridView();
+        }
+
+        private async void ButtonRemove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            ClearDataGridViewSelection();
+        }
+
+        private void DataGridViewUsers_SelectionChanged(object sender, EventArgs e)
+        {
+            var selectedRows = dataGridViewUsers.SelectedRows;
+           
+            var userIsSelected = selectedRows.Count > 0;
+            groupBoxUserValues.Text = userIsSelected
+                ? "Редактирование пользователя"
+                : "Добавление пользователя";
+            buttonAdd.Enabled = !userIsSelected;
+            buttonEdit.Enabled = userIsSelected;
+            buttonRemove.Enabled = userIsSelected;
+
+            if (userIsSelected)
+            {
+                var selectedRow = selectedRows[0];
+                textBoxName.Text = selectedRow.Cells[0].Value.ToString();
+                textBoxLogin.Text = selectedRow.Cells[1].Value.ToString();
+                comboBoxRole.SelectedIndex = selectedRow.Cells[2].Value.ToString().Equals("Бухгалтер") ? 0 : 1;
+                _selectedUserId = Convert.ToInt32(selectedRow.Cells[3].Value.ToString());
+                textBoxPassword.Text = selectedRow.Cells[4].Value.ToString();
+            }
+        }
+
+        private async void AdminForm_Shown(object sender, EventArgs e)
+        {
+            await UpdateDataGridView();
+        }
+
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.LoginForm.Show();
         }
     }
 }

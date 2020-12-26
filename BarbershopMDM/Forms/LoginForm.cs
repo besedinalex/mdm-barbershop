@@ -49,9 +49,14 @@ namespace BarbershopMDM.Forms
                     new ManagerForm().ShowDialog();
                     break;
                 default:
-                    MessageBox.Show("Ошибка 1: Неверная роль пользователя.");
+                    MessageBox.Show("Ошибка 1: Неопознанная роль пользователя.");
                     break;
             }
+        }
+
+        private void LoginForm_VisibleChanged(object sender, EventArgs e)
+        {
+            textBoxPassword.Text = "";
         }
     }
 }

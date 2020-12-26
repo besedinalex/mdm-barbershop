@@ -108,6 +108,7 @@ namespace BarbershopMDM.Forms
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.Text = "ИС Парикмахерская";
+            this.VisibleChanged += new System.EventHandler(this.LoginForm_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

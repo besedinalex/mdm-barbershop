@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BarbershopMDM.Data.Repositories;
@@ -14,11 +8,13 @@ namespace BarbershopMDM.Forms
     public partial class AdminForm : Form
     {
         private readonly IEmployeesRepository _employeesRepository;
+        private readonly IOrdersRepository _ordersRepository;
         private int _selectedUserId;
 
         public AdminForm()
         {
             _employeesRepository = (IEmployeesRepository)Program.ServiceProvider.GetService(typeof(IEmployeesRepository));
+            _ordersRepository = (IOrdersRepository)Program.ServiceProvider.GetService(typeof(IOrdersRepository));
 
             InitializeComponent();
 
@@ -135,7 +131,15 @@ namespace BarbershopMDM.Forms
 
         private async void ButtonRemove_Click(object sender, EventArgs e)
         {
-
+            var userOrders = await _ordersRepository.GetEmployeeOrders(_selectedUserId);
+            if (userOrders.Count > 0)
+            {
+                MessageBox.Show("Нельзя удалить пользователя, за которым закреплены заказы.");
+                return;
+            }
+            var user = await _employeesRepository.GetEmployee(_selectedUserId);
+            await _employeesRepository.RemoveEmployee(user);
+            await UpdateDataGridView();
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
@@ -169,6 +173,7 @@ namespace BarbershopMDM.Forms
         private async void AdminForm_Shown(object sender, EventArgs e)
         {
             await UpdateDataGridView();
+            DataGridViewUsers_SelectionChanged(sender, e);
         }
 
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)

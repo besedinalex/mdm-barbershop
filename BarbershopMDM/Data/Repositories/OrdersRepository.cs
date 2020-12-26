@@ -24,6 +24,10 @@ namespace BarbershopMDM.Data.Repositories
             _context.Orders.ToListAsync();
 
         /// <inheritdoc />
+        public Task<List<Order>> GetEmployeeOrders(int employeeId) =>
+            _context.Orders.Where(x => x.EmployeeId == employeeId).ToListAsync();
+
+        /// <inheritdoc />
         public Task<List<OrderContent>> GetOrdersContent(int orderId) =>
             _context.OrderContents.Where(x => x.OrderId == orderId).ToListAsync();
 

@@ -20,6 +20,11 @@ namespace BarbershopMDM.Data.Repositories
         /// <returns>Returns all orders.</returns>
         Task<List<Order>> GetOrders();
 
+        /// <summary>Get all employee orders.</summary>
+        /// <param name="employeeId">Id of the employee orders.</param>
+        /// <returns>Returns all employee's orders.</returns>
+        Task<List<Order>> GetEmployeeOrders(int employeeId);
+
         /// <summary>Creates order.</summary>
         /// <param name="order">Order data.</param>
         /// <returns>Returns id of the new order.</returns>

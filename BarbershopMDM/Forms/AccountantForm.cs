@@ -191,14 +191,21 @@ namespace BarbershopMDM.Forms
 
         private async void ButtonAddSupplier_Click(object sender, EventArgs e)
         {
-            if (!VerifySupplierValues(out var orgn, out var name, out var number))
+            if (!VerifySupplierValues(out var ogrn, out var name, out var number))
             {
                 return;
             }
 
-            var supplier = new Models.Supplier()
+            var supplier = await _suppliersRepository.GetSupplierByOGRN(ogrn);
+            if (supplier != null)
             {
-                OGRN = orgn,
+                MessageBox.Show("Поставщик с таким ОГРН уже есть в базе.");
+                return;
+            }
+
+            supplier = new Models.Supplier()
+            {
+                OGRN = ogrn,
                 Name = name,
                 ContactNumber = number
             };

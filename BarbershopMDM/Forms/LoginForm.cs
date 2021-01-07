@@ -46,7 +46,7 @@ namespace BarbershopMDM.Forms
                     break;
                 case "manager":
                     Hide();
-                    new ManagerForm().ShowDialog();
+                    new ManagerForm(user.Id).ShowDialog();
                     break;
                 default:
                     MessageBox.Show("Ошибка 1: Неопознанная роль пользователя.");

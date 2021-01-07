@@ -516,7 +516,7 @@ namespace BarbershopMDM.Forms
             buttonAddSupplierToOrder.Enabled = supplierSelected && SelectedOrderId == 0;
             buttonEditSupplier.Enabled = supplierSelected;
             buttonRemoveSupplier.Enabled = supplierSelected;
-            numericUpDownORGN.Enabled = !supplierSelected;
+            numericUpDownORGN.ReadOnly = !supplierSelected;
 
             if (supplierSelected)
             {
@@ -600,10 +600,7 @@ namespace BarbershopMDM.Forms
             await UpdateDataGridViewSuppliers();
             await UpdateDataGridViewOrders();
             UpdateDataGridViewOrderConsumables();
-            DataGridViewConsumables_SelectionChanged(sender, e);
-            DataGridViewSuppliers_SelectionChanged(sender, e);
             DataGridViewOrders_SelectionChanged(sender, e);
-            DataGridViewOrderConsumables_SelectionChanged(sender, e);
         }
 
         private void AccountantForm_FormClosed(object sender, FormClosedEventArgs e)

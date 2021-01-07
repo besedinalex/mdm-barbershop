@@ -43,14 +43,14 @@ namespace BarbershopMDM.Forms
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(131, 20);
-            this.textBoxPassword.TabIndex = 0;
+            this.textBoxPassword.TabIndex = 1;
             // 
             // textBoxLogin
             // 
             this.textBoxLogin.Location = new System.Drawing.Point(76, 50);
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(131, 20);
-            this.textBoxLogin.TabIndex = 1;
+            this.textBoxLogin.TabIndex = 0;
             // 
             // label1
             // 
@@ -87,7 +87,7 @@ namespace BarbershopMDM.Forms
             this.buttonEnter.Location = new System.Drawing.Point(12, 136);
             this.buttonEnter.Name = "buttonEnter";
             this.buttonEnter.Size = new System.Drawing.Size(195, 23);
-            this.buttonEnter.TabIndex = 5;
+            this.buttonEnter.TabIndex = 2;
             this.buttonEnter.Text = "Войти";
             this.buttonEnter.UseVisualStyleBackColor = true;
             this.buttonEnter.Click += new System.EventHandler(this.ButtonEnter_Click);

@@ -68,7 +68,7 @@ namespace BarbershopMDM.Forms
             this.textBoxName.MaxLength = 200;
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(451, 20);
-            this.textBoxName.TabIndex = 1;
+            this.textBoxName.TabIndex = 0;
             // 
             // textBoxLogin
             // 
@@ -76,14 +76,14 @@ namespace BarbershopMDM.Forms
             this.textBoxLogin.MaxLength = 20;
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(451, 20);
-            this.textBoxLogin.TabIndex = 2;
+            this.textBoxLogin.TabIndex = 1;
             // 
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(6, 124);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(114, 23);
-            this.buttonAdd.TabIndex = 3;
+            this.buttonAdd.TabIndex = 5;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
@@ -105,7 +105,7 @@ namespace BarbershopMDM.Forms
             this.groupBoxUserValues.Location = new System.Drawing.Point(12, 107);
             this.groupBoxUserValues.Name = "groupBoxUserValues";
             this.groupBoxUserValues.Size = new System.Drawing.Size(534, 153);
-            this.groupBoxUserValues.TabIndex = 4;
+            this.groupBoxUserValues.TabIndex = 12;
             this.groupBoxUserValues.TabStop = false;
             // 
             // buttonRemove
@@ -113,7 +113,7 @@ namespace BarbershopMDM.Forms
             this.buttonRemove.Location = new System.Drawing.Point(246, 124);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(114, 23);
-            this.buttonRemove.TabIndex = 10;
+            this.buttonRemove.TabIndex = 7;
             this.buttonRemove.Text = "Удалить";
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.ButtonRemove_Click);
@@ -123,7 +123,7 @@ namespace BarbershopMDM.Forms
             this.buttonEdit.Location = new System.Drawing.Point(126, 124);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(114, 23);
-            this.buttonEdit.TabIndex = 9;
+            this.buttonEdit.TabIndex = 6;
             this.buttonEdit.Text = "Изменить";
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.ButtonEdit_Click);
@@ -145,7 +145,7 @@ namespace BarbershopMDM.Forms
             this.comboBoxRole.Location = new System.Drawing.Point(77, 97);
             this.comboBoxRole.Name = "comboBoxRole";
             this.comboBoxRole.Size = new System.Drawing.Size(451, 21);
-            this.comboBoxRole.TabIndex = 7;
+            this.comboBoxRole.TabIndex = 4;
             // 
             // label4
             // 
@@ -172,7 +172,7 @@ namespace BarbershopMDM.Forms
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(451, 20);
-            this.textBoxPassword.TabIndex = 4;
+            this.textBoxPassword.TabIndex = 3;
             // 
             // label2
             // 

@@ -58,18 +58,25 @@ namespace BarbershopMDM.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeId = table.Column<int>(nullable: false),
                     SupplierId = table.Column<int>(nullable: false),
                     Cost = table.Column<int>(nullable: false),
-                    TimeCreated = table.Column<DateTime>(nullable: false),
-                    TimeCompleted = table.Column<DateTime>(nullable: false)
+                    OrdererId = table.Column<int>(nullable: false),
+                    TimeOrdered = table.Column<DateTime>(nullable: false),
+                    FinisherId = table.Column<int>(nullable: true),
+                    TimeCompleted = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
+                        name: "FK_Orders_Employees_FinisherId",
+                        column: x => x.FinisherId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Employees_OrdererId",
+                        column: x => x.OrdererId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -143,15 +150,20 @@ namespace BarbershopMDM.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_EmployeeId",
+                name: "IX_Orders_FinisherId",
                 table: "Orders",
-                column: "EmployeeId");
+                column: "FinisherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_Id",
                 table: "Orders",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrdererId",
+                table: "Orders",
+                column: "OrdererId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_SupplierId",

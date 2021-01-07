@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarbershopMDM.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210106154321_Init")]
+    [Migration("20210107143329_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,24 +81,29 @@ namespace BarbershopMDM.Migrations
                     b.Property<int>("Cost")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("FinisherId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OrdererId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("SupplierId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("TimeCompleted")
+                    b.Property<DateTime?>("TimeCompleted")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("TimeCreated")
+                    b.Property<DateTime>("TimeOrdered")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("FinisherId");
 
                     b.HasIndex("Id")
                         .IsUnique();
+
+                    b.HasIndex("OrdererId");
 
                     b.HasIndex("SupplierId");
 
@@ -162,9 +167,13 @@ namespace BarbershopMDM.Migrations
 
             modelBuilder.Entity("BarbershopMDM.Models.Order", b =>
                 {
-                    b.HasOne("BarbershopMDM.Models.Employee", "Employee")
-                        .WithMany("Orders")
-                        .HasForeignKey("EmployeeId")
+                    b.HasOne("BarbershopMDM.Models.Employee", "Finisher")
+                        .WithMany("OrdersCompleted")
+                        .HasForeignKey("FinisherId");
+
+                    b.HasOne("BarbershopMDM.Models.Employee", "Orderer")
+                        .WithMany("OrdersCreated")
+                        .HasForeignKey("OrdererId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

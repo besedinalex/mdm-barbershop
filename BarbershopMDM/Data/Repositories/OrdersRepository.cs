@@ -28,8 +28,16 @@ namespace BarbershopMDM.Data.Repositories
             _context.Orders.ToListAsync();
 
         /// <inheritdoc />
-        public Task<List<Order>> GetEmployeeOrders(int employeeId) =>
-            _context.Orders.Where(x => x.EmployeeId == employeeId).ToListAsync();
+        public async Task<List<Order>> GetEmployeeOrders(int employeeId)
+        {
+            var ordersCreated = await _context.Orders.Where(x => x.OrdererId == employeeId).ToListAsync();
+            var ordersFinished = await _context.Orders.Where(x => x.FinisherId == employeeId).ToListAsync();
+
+            var response = new List<Order>();
+            response.AddRange(ordersCreated);
+            response.AddRange(ordersFinished);
+            return response;
+        }
 
         /// <inheritdoc />
         public Task<List<Order>> GetSupplierOrders(int supplierId) =>

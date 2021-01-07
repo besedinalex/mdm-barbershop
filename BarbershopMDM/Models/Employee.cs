@@ -15,6 +15,8 @@ namespace BarbershopMDM.Models
 
         [Required] public string Role { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Order> OrdersCreated { get; set; }
+
+        public ICollection<Order> OrdersCompleted { get; set; }
     }
 }

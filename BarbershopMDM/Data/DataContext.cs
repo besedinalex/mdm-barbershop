@@ -48,8 +48,12 @@ namespace BarbershopMDM.Data
                 .IsUnique();
 
             modelBuilder.Entity<Order>()
-                .HasOne(x => x.Employee)
-                .WithMany(x => x.Orders);
+                .HasOne(x => x.Orderer)
+                .WithMany(x => x.OrdersCreated);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.Finisher)
+                .WithMany(x => x.OrdersCompleted);
 
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.Supplier)

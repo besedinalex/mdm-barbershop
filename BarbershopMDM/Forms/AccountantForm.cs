@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BarbershopMDM.Models;
 using BarbershopMDM.Data.Repositories;
 
 namespace BarbershopMDM.Forms
@@ -16,17 +17,22 @@ namespace BarbershopMDM.Forms
         private readonly int _currentUserId;
         private readonly IConsumablesRepository _consumablesRepository;
         private readonly ISuppliersRepository _suppliersRepository;
+        private readonly IEmployeesRepository _employeesRepository;
         private readonly IOrdersRepository _ordersRepository;
+
+        private string CurrentUserName { get; set; }
 
         public AccountantForm(int userId)
         {
             _currentUserId = userId;
             _consumablesRepository = (IConsumablesRepository)Program.ServiceProvider.GetService(typeof(IConsumablesRepository));
             _suppliersRepository = (ISuppliersRepository)Program.ServiceProvider.GetService(typeof(ISuppliersRepository));
+            _employeesRepository = (IEmployeesRepository)Program.ServiceProvider.GetService(typeof(IEmployeesRepository));
             _ordersRepository = (IOrdersRepository)Program.ServiceProvider.GetService(typeof(IOrdersRepository));
 
             InitializeComponent();
 
+            // Consumables menu
             dataGridViewConsumables.RowHeadersVisible = false;
             dataGridViewConsumables.ColumnCount = 3;
             dataGridViewConsumables.Columns[0].HeaderText = "Код";
@@ -34,7 +40,10 @@ namespace BarbershopMDM.Forms
             dataGridViewConsumables.Columns[2].HeaderText = "Кол-во";
             dataGridViewConsumables.Columns[0].Width = 50;
             dataGridViewConsumables.Columns[2].Width = 50;
+            numericUpDownConsumablesAmount.Controls[0].Visible = false;
+            numericUpDownConsumablesAmount.Controls[1].Width -= 4;
 
+            // Suppliers menu
             dataGridViewSuppliers.RowHeadersVisible = false;
             dataGridViewSuppliers.ColumnCount = 3;
             dataGridViewSuppliers.Columns[0].HeaderText = "ОГРН";
@@ -42,11 +51,36 @@ namespace BarbershopMDM.Forms
             dataGridViewSuppliers.Columns[2].HeaderText = "Телефон";
             dataGridViewSuppliers.Columns[0].Width = 86;
             dataGridViewSuppliers.Columns[2].Width = 100;
-
             numericUpDownORGN.Controls[0].Visible = false;
             numericUpDownORGN.Controls[1].Width -= 4;
-            numericUpDownConsumablesAmount.Controls[0].Visible = false;
-            numericUpDownConsumablesAmount.Controls[1].Width -= 4;
+
+            // Order menu
+            numericUpDownOrderCost.Controls[0].Visible = false;
+            numericUpDownOrderCost.Controls[1].Width -= 4;
+
+            // Order consumables menu
+            dataGridViewOrderConsumables.RowHeadersVisible = false;
+            dataGridViewOrderConsumables.ColumnCount = 3;
+            dataGridViewOrderConsumables.Columns[0].HeaderText = "Код";
+            dataGridViewOrderConsumables.Columns[1].HeaderText = "Наименование";
+            dataGridViewOrderConsumables.Columns[2].HeaderText = "Кол-во";
+            dataGridViewOrderConsumables.Columns[0].Width = 50;
+            dataGridViewOrderConsumables.Columns[2].Width = 50;
+            numericUpDownOrderConsumablesAmount.Controls[0].Visible = false;
+            numericUpDownOrderConsumablesAmount.Controls[1].Width -= 4;
+
+            // Orders menu
+            dataGridViewOrders.RowHeadersVisible = false;
+            dataGridViewOrders.ColumnCount = 7;
+            dataGridViewOrders.Columns[0].HeaderText = "Код";
+            dataGridViewOrders.Columns[1].HeaderText = "Поставщик";
+            dataGridViewOrders.Columns[2].HeaderText = "Цена (руб)";
+            dataGridViewOrders.Columns[3].HeaderText = "Оформил";
+            dataGridViewOrders.Columns[4].HeaderText = "Время оформления";
+            dataGridViewOrders.Columns[5].HeaderText = "Принял";
+            dataGridViewOrders.Columns[6].HeaderText = "Время принятия";
+            dataGridViewOrders.Columns[0].Width = 50;
+            dataGridViewOrders.Columns[2].Width = 84;
         }
 
         private async Task UpdateDataGridViewConsumables()
@@ -73,6 +107,29 @@ namespace BarbershopMDM.Forms
             ClearDataGridViewSuppliersSelection();
         }
 
+        private async Task UpdateDataGridViewOrders()
+        {
+            var orders = await _ordersRepository.GetOrders();
+            dataGridViewOrders.Rows.Clear();
+            foreach (var order in orders)
+            {
+                var supplierName = (await _suppliersRepository.GetSupplier(order.SupplierId)).Name;
+                var ordererName = (await _employeesRepository.GetEmployee(order.OrdererId)).Name;
+                var finisherName = order.FinisherId == null ? "" : (await _employeesRepository.GetEmployee((int)order.FinisherId)).Name;
+                dataGridViewOrders.Rows.Add(new[]
+                {
+                    order.Id.ToString(),
+                    supplierName,
+                    order.Cost.ToString(),
+                    ordererName,
+                    order.TimeOrdered.ToString(),
+                    finisherName,
+                    order.TimeCompleted.ToString()
+                });
+            }
+            ClearDataGridViewOrdersSelection();
+        }
+
         private void ClearDataGridViewConsumablesSelection()
         {
             dataGridViewConsumables.ClearSelection();
@@ -87,6 +144,13 @@ namespace BarbershopMDM.Forms
             ClearSuppliersValues();
         }
 
+        private void ClearDataGridViewOrdersSelection()
+        {
+            dataGridViewOrders.ClearSelection();
+            dataGridViewOrders.CurrentCell = null;
+            ClearOrdersValues();
+        }
+
         private void ClearConsumablesValues()
         {
             textBoxConsumablesId.Text = "";
@@ -99,6 +163,17 @@ namespace BarbershopMDM.Forms
             numericUpDownORGN.Value = 0;
             textBoxSupplierName.Text = "";
             textBoxSupplierNumber.Text = "";
+        }
+
+        private void ClearOrdersValues()
+        {
+            textBoxOrderId.Text = "";
+            textBoxOrderSupplier.Text = "";
+            numericUpDownOrderCost.Value = 0;
+            textBoxOrderOrderer.Text = CurrentUserName;
+            textBoxOrderTimeOrdered.Text = "";
+            textBoxOrderFinisher.Text = "";
+            textBoxOrderTimeCompleted.Text = "";
         }
 
         private bool VerifyConsumablesValues(out string name, out int amount)
@@ -145,7 +220,7 @@ namespace BarbershopMDM.Forms
                 return;
             }
 
-            var consumable = new Models.Consumables()
+            var consumable = new Consumables()
             {
                 Name = name,
                 CurrentAmount = amount
@@ -203,7 +278,7 @@ namespace BarbershopMDM.Forms
                 return;
             }
 
-            supplier = new Models.Supplier()
+            supplier = new Supplier()
             {
                 OGRN = ogrn,
                 Name = name,
@@ -287,12 +362,40 @@ namespace BarbershopMDM.Forms
             }
         }
 
+        private void DataGridViewOrders_SelectionChanged(object sender, EventArgs e)
+        {
+            var selectedRows = dataGridViewOrders.SelectedRows;
+
+            var orderSelected = selectedRows.Count > 0;
+
+            if (orderSelected)
+            {
+                var selectedRow = selectedRows[0];
+                textBoxOrderId.Text = selectedRow.Cells[0].Value.ToString();
+                textBoxOrderSupplier.Text = selectedRow.Cells[1].Value.ToString();
+                numericUpDownOrderCost.Value = Convert.ToInt32(selectedRow.Cells[2].Value.ToString());
+                textBoxOrderOrderer.Text = selectedRow.Cells[3].Value.ToString();
+                textBoxOrderTimeOrdered.Text = selectedRow.Cells[4].Value.ToString();
+                textBoxOrderFinisher.Text = selectedRow.Cells[5].Value.ToString();
+                textBoxOrderTimeCompleted.Text = selectedRow.Cells[6].Value.ToString();
+            }
+
+            buttonCreateOrder.Enabled = !orderSelected;
+            buttonUpdateOrder.Enabled = orderSelected;
+            buttonAbortOrder.Enabled = orderSelected && textBoxOrderFinisher.Text.Equals("");
+        }
+
         private async void AccountantForm_Shown(object sender, EventArgs e)
         {
+            var user = await _employeesRepository.GetEmployee(_currentUserId);
+            CurrentUserName = user.Name;
+
             await UpdateDataGridViewConsumables();
             await UpdateDataGridViewSuppliers();
+            await UpdateDataGridViewOrders();
             DataGridViewConsumables_SelectionChanged(sender, e);
             DataGridViewSuppliers_SelectionChanged(sender, e);
+            DataGridViewOrders_SelectionChanged(sender, e);
         }
 
         private void AccountantForm_FormClosed(object sender, FormClosedEventArgs e)

@@ -63,20 +63,6 @@ namespace BarbershopMDM.Data.Repositories
         }
 
         /// <inheritdoc />
-        public Task UpdateOrder(Order order)
-        {
-            _context.Orders.Update(order);
-            return _context.SaveChangesAsync();
-        }
-
-        /// <inheritdoc />
-        public Task UpdateOrderContent(List<OrderContent> orderContent)
-        {
-            _context.OrderContents.UpdateRange(orderContent);
-            return _context.SaveChangesAsync();
-        }
-
-        /// <inheritdoc />
         public async Task RemoveOrder(Order order)
         {
             var orderContent = await _context.OrderContents.Where(x => x.OrderId == order.Id).ToListAsync();

@@ -9,7 +9,7 @@ The purpose of the app is to grant certain barbershop's employees an automated s
 - SQLite database via Entity Framework.
 - Windows Forms based UI.
 
-**System administrator:**
+**Administrator:**
 - View users.
 - Create user.
 - Edit user's info.
@@ -25,11 +25,10 @@ The purpose of the app is to grant certain barbershop's employees an automated s
 - Edit supplier info (name, contact number).
 - Delete supplier info.
 - Create order (supplier, consumables, price).
-- Edit order (consumables, price).
-- Delete order.
+- Delete order (if it isn't marked as completed).
 
-**Administrator:**
+**Manager:**
 - View consumables info.
-- View suppliers info.
-- Edit order info (mark it done when it is).
 - Edit consumables info (amount).
+- View suppliers info.
+- Edit order info (mark it completed when it is).

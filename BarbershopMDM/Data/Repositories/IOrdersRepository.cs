@@ -44,14 +44,6 @@ namespace BarbershopMDM.Data.Repositories
         /// <param name="orderContent">Order content to create.</param>
         Task CreateOrderContent(List<OrderContent> orderContent);
 
-        /// <summary>Updates order.</summary>
-        /// <param name="order">Order data.</param>
-        Task UpdateOrder(Order order);
-
-        /// <summary>Updates order content.</summary>
-        /// <param name="orderContent">Order content to update.</param>
-        Task UpdateOrderContent(List<OrderContent> orderContent);
-
         /// <summary>Removes order and it's content.</summary>
         /// <param name="order">Order data.</param>
         Task RemoveOrder(Order order);

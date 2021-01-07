@@ -60,7 +60,6 @@ namespace BarbershopMDM.Forms
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxOrderId = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.buttonUpdateOrder = new System.Windows.Forms.Button();
             this.buttonCancelOrder = new System.Windows.Forms.Button();
             this.buttonCreateOrder = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -148,6 +147,7 @@ namespace BarbershopMDM.Forms
             this.buttonAddConsumablesToOrder.TabIndex = 19;
             this.buttonAddConsumablesToOrder.Text = "Добавить в заказ";
             this.buttonAddConsumablesToOrder.UseVisualStyleBackColor = true;
+            this.buttonAddConsumablesToOrder.Click += new System.EventHandler(this.ButtonAddConsumablesToOrder_Click);
             // 
             // buttonRemoveConsumables
             // 
@@ -212,7 +212,6 @@ namespace BarbershopMDM.Forms
             // 
             // textBoxConsumablesId
             // 
-            this.textBoxConsumablesId.Enabled = false;
             this.textBoxConsumablesId.Location = new System.Drawing.Point(107, 149);
             this.textBoxConsumablesId.MaxLength = 200;
             this.textBoxConsumablesId.Name = "textBoxConsumablesId";
@@ -286,7 +285,6 @@ namespace BarbershopMDM.Forms
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Controls.Add(this.textBoxOrderId);
             this.groupBox5.Controls.Add(this.label10);
-            this.groupBox5.Controls.Add(this.buttonUpdateOrder);
             this.groupBox5.Controls.Add(this.buttonCancelOrder);
             this.groupBox5.Controls.Add(this.buttonCreateOrder);
             this.groupBox5.Location = new System.Drawing.Point(6, 19);
@@ -298,33 +296,33 @@ namespace BarbershopMDM.Forms
             // 
             // buttonAbortOrder
             // 
-            this.buttonAbortOrder.Location = new System.Drawing.Point(168, 227);
+            this.buttonAbortOrder.Location = new System.Drawing.Point(87, 227);
             this.buttonAbortOrder.Name = "buttonAbortOrder";
             this.buttonAbortOrder.Size = new System.Drawing.Size(75, 23);
             this.buttonAbortOrder.TabIndex = 33;
             this.buttonAbortOrder.Text = "Отменить";
             this.buttonAbortOrder.UseVisualStyleBackColor = true;
+            this.buttonAbortOrder.Click += new System.EventHandler(this.ButtonAbortOrder_Click);
             // 
             // numericUpDownOrderCost
             // 
-            this.numericUpDownOrderCost.Location = new System.Drawing.Point(112, 71);
+            this.numericUpDownOrderCost.Location = new System.Drawing.Point(119, 71);
             this.numericUpDownOrderCost.Maximum = new decimal(new int[] {
             1316134911,
             2328,
             0,
             0});
             this.numericUpDownOrderCost.Name = "numericUpDownOrderCost";
-            this.numericUpDownOrderCost.Size = new System.Drawing.Size(357, 20);
+            this.numericUpDownOrderCost.Size = new System.Drawing.Size(350, 20);
             this.numericUpDownOrderCost.TabIndex = 32;
             // 
             // textBoxOrderTimeCompleted
             // 
-            this.textBoxOrderTimeCompleted.Enabled = false;
-            this.textBoxOrderTimeCompleted.Location = new System.Drawing.Point(112, 175);
+            this.textBoxOrderTimeCompleted.Location = new System.Drawing.Point(119, 175);
             this.textBoxOrderTimeCompleted.MaxLength = 200;
             this.textBoxOrderTimeCompleted.Name = "textBoxOrderTimeCompleted";
             this.textBoxOrderTimeCompleted.ReadOnly = true;
-            this.textBoxOrderTimeCompleted.Size = new System.Drawing.Size(357, 20);
+            this.textBoxOrderTimeCompleted.Size = new System.Drawing.Size(350, 20);
             this.textBoxOrderTimeCompleted.TabIndex = 30;
             // 
             // label16
@@ -332,18 +330,17 @@ namespace BarbershopMDM.Forms
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(6, 178);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(83, 13);
+            this.label16.Size = new System.Drawing.Size(90, 13);
             this.label16.TabIndex = 31;
-            this.label16.Text = "Дата принятия";
+            this.label16.Text = "Время принятия";
             // 
             // textBoxOrderFinisher
             // 
-            this.textBoxOrderFinisher.Enabled = false;
-            this.textBoxOrderFinisher.Location = new System.Drawing.Point(112, 149);
+            this.textBoxOrderFinisher.Location = new System.Drawing.Point(119, 149);
             this.textBoxOrderFinisher.MaxLength = 200;
             this.textBoxOrderFinisher.Name = "textBoxOrderFinisher";
             this.textBoxOrderFinisher.ReadOnly = true;
-            this.textBoxOrderFinisher.Size = new System.Drawing.Size(357, 20);
+            this.textBoxOrderFinisher.Size = new System.Drawing.Size(350, 20);
             this.textBoxOrderFinisher.TabIndex = 28;
             // 
             // label15
@@ -351,18 +348,17 @@ namespace BarbershopMDM.Forms
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(6, 152);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(45, 13);
+            this.label15.Size = new System.Drawing.Size(57, 13);
             this.label15.TabIndex = 29;
-            this.label15.Text = "Принял";
+            this.label15.Text = "Принял(а)";
             // 
             // textBoxOrderTimeOrdered
             // 
-            this.textBoxOrderTimeOrdered.Enabled = false;
-            this.textBoxOrderTimeOrdered.Location = new System.Drawing.Point(112, 123);
+            this.textBoxOrderTimeOrdered.Location = new System.Drawing.Point(119, 123);
             this.textBoxOrderTimeOrdered.MaxLength = 200;
             this.textBoxOrderTimeOrdered.Name = "textBoxOrderTimeOrdered";
             this.textBoxOrderTimeOrdered.ReadOnly = true;
-            this.textBoxOrderTimeOrdered.Size = new System.Drawing.Size(357, 20);
+            this.textBoxOrderTimeOrdered.Size = new System.Drawing.Size(350, 20);
             this.textBoxOrderTimeOrdered.TabIndex = 26;
             // 
             // label14
@@ -370,18 +366,17 @@ namespace BarbershopMDM.Forms
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(6, 126);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(100, 13);
+            this.label14.Size = new System.Drawing.Size(107, 13);
             this.label14.TabIndex = 27;
-            this.label14.Text = "Дата оформления";
+            this.label14.Text = "Время оформления";
             // 
             // textBoxOrderOrderer
             // 
-            this.textBoxOrderOrderer.Enabled = false;
-            this.textBoxOrderOrderer.Location = new System.Drawing.Point(112, 97);
+            this.textBoxOrderOrderer.Location = new System.Drawing.Point(119, 97);
             this.textBoxOrderOrderer.MaxLength = 200;
             this.textBoxOrderOrderer.Name = "textBoxOrderOrderer";
             this.textBoxOrderOrderer.ReadOnly = true;
-            this.textBoxOrderOrderer.Size = new System.Drawing.Size(357, 20);
+            this.textBoxOrderOrderer.Size = new System.Drawing.Size(350, 20);
             this.textBoxOrderOrderer.TabIndex = 24;
             // 
             // label13
@@ -389,27 +384,26 @@ namespace BarbershopMDM.Forms
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(6, 100);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(55, 13);
+            this.label13.Size = new System.Drawing.Size(67, 13);
             this.label13.TabIndex = 25;
-            this.label13.Text = "Оформил";
+            this.label13.Text = "Оформил(а)";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(6, 74);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(33, 13);
+            this.label12.Size = new System.Drawing.Size(59, 13);
             this.label12.TabIndex = 23;
-            this.label12.Text = "Цена";
+            this.label12.Text = "Цена (руб)";
             // 
             // textBoxOrderSupplier
             // 
-            this.textBoxOrderSupplier.Enabled = false;
-            this.textBoxOrderSupplier.Location = new System.Drawing.Point(112, 45);
+            this.textBoxOrderSupplier.Location = new System.Drawing.Point(119, 45);
             this.textBoxOrderSupplier.MaxLength = 200;
             this.textBoxOrderSupplier.Name = "textBoxOrderSupplier";
             this.textBoxOrderSupplier.ReadOnly = true;
-            this.textBoxOrderSupplier.Size = new System.Drawing.Size(357, 20);
+            this.textBoxOrderSupplier.Size = new System.Drawing.Size(350, 20);
             this.textBoxOrderSupplier.TabIndex = 20;
             // 
             // label11
@@ -423,12 +417,11 @@ namespace BarbershopMDM.Forms
             // 
             // textBoxOrderId
             // 
-            this.textBoxOrderId.Enabled = false;
-            this.textBoxOrderId.Location = new System.Drawing.Point(112, 19);
+            this.textBoxOrderId.Location = new System.Drawing.Point(119, 19);
             this.textBoxOrderId.MaxLength = 200;
             this.textBoxOrderId.Name = "textBoxOrderId";
             this.textBoxOrderId.ReadOnly = true;
-            this.textBoxOrderId.Size = new System.Drawing.Size(357, 20);
+            this.textBoxOrderId.Size = new System.Drawing.Size(350, 20);
             this.textBoxOrderId.TabIndex = 18;
             // 
             // label10
@@ -440,15 +433,6 @@ namespace BarbershopMDM.Forms
             this.label10.TabIndex = 19;
             this.label10.Text = "Код";
             // 
-            // buttonUpdateOrder
-            // 
-            this.buttonUpdateOrder.Location = new System.Drawing.Point(87, 227);
-            this.buttonUpdateOrder.Name = "buttonUpdateOrder";
-            this.buttonUpdateOrder.Size = new System.Drawing.Size(75, 23);
-            this.buttonUpdateOrder.TabIndex = 15;
-            this.buttonUpdateOrder.Text = "Обновить";
-            this.buttonUpdateOrder.UseVisualStyleBackColor = true;
-            // 
             // buttonCancelOrder
             // 
             this.buttonCancelOrder.Location = new System.Drawing.Point(394, 227);
@@ -457,6 +441,7 @@ namespace BarbershopMDM.Forms
             this.buttonCancelOrder.TabIndex = 17;
             this.buttonCancelOrder.Text = "Отмена";
             this.buttonCancelOrder.UseVisualStyleBackColor = true;
+            this.buttonCancelOrder.Click += new System.EventHandler(this.ButtonCancelOrder_Click);
             // 
             // buttonCreateOrder
             // 
@@ -466,6 +451,7 @@ namespace BarbershopMDM.Forms
             this.buttonCreateOrder.TabIndex = 11;
             this.buttonCreateOrder.Text = "Оформить";
             this.buttonCreateOrder.UseVisualStyleBackColor = true;
+            this.buttonCreateOrder.Click += new System.EventHandler(this.ButtonCreateOrder_Click);
             // 
             // groupBox4
             // 
@@ -494,6 +480,7 @@ namespace BarbershopMDM.Forms
             this.buttonRemoveOrderConsumables.TabIndex = 15;
             this.buttonRemoveOrderConsumables.Text = "Убрать";
             this.buttonRemoveOrderConsumables.UseVisualStyleBackColor = true;
+            this.buttonRemoveOrderConsumables.Click += new System.EventHandler(this.ButtonRemoveOrderConsumables_Click);
             // 
             // numericUpDownOrderConsumablesAmount
             // 
@@ -515,6 +502,7 @@ namespace BarbershopMDM.Forms
             this.buttonCancelOrderConsumables.TabIndex = 17;
             this.buttonCancelOrderConsumables.Text = "Отмена";
             this.buttonCancelOrderConsumables.UseVisualStyleBackColor = true;
+            this.buttonCancelOrderConsumables.Click += new System.EventHandler(this.ButtonCancelOrderConsumables_Click);
             // 
             // label7
             // 
@@ -538,6 +526,7 @@ namespace BarbershopMDM.Forms
             this.dataGridViewOrderConsumables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewOrderConsumables.Size = new System.Drawing.Size(463, 124);
             this.dataGridViewOrderConsumables.TabIndex = 1;
+            this.dataGridViewOrderConsumables.SelectionChanged += new System.EventHandler(this.DataGridViewOrderConsumables_SelectionChanged);
             // 
             // buttonUpdateOrderConsumables
             // 
@@ -547,10 +536,10 @@ namespace BarbershopMDM.Forms
             this.buttonUpdateOrderConsumables.TabIndex = 11;
             this.buttonUpdateOrderConsumables.Text = "Изменить";
             this.buttonUpdateOrderConsumables.UseVisualStyleBackColor = true;
+            this.buttonUpdateOrderConsumables.Click += new System.EventHandler(this.ButtonUpdateOrderConsumables_Click);
             // 
             // textBoxOrderConsumablesId
             // 
-            this.textBoxOrderConsumablesId.Enabled = false;
             this.textBoxOrderConsumablesId.Location = new System.Drawing.Point(101, 149);
             this.textBoxOrderConsumablesId.MaxLength = 200;
             this.textBoxOrderConsumablesId.Name = "textBoxOrderConsumablesId";
@@ -629,6 +618,7 @@ namespace BarbershopMDM.Forms
             this.buttonAddSupplierToOrder.TabIndex = 20;
             this.buttonAddSupplierToOrder.Text = "Указать в заказе";
             this.buttonAddSupplierToOrder.UseVisualStyleBackColor = true;
+            this.buttonAddSupplierToOrder.Click += new System.EventHandler(this.ButtonAddSupplierToOrder_Click);
             // 
             // numericUpDownORGN
             // 
@@ -818,7 +808,6 @@ namespace BarbershopMDM.Forms
         private System.Windows.Forms.TextBox textBoxOrderConsumablesName;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button buttonUpdateOrder;
         private System.Windows.Forms.Button buttonCancelOrder;
         private System.Windows.Forms.Button buttonCreateOrder;
         private System.Windows.Forms.TextBox textBoxOrderTimeCompleted;

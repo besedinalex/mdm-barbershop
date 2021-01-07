@@ -19,6 +19,10 @@ namespace BarbershopMDM.Data.Repositories
             _context.Suppliers.FirstOrDefaultAsync(x => x.Id == supplierId);
 
         /// <inheritdoc />
+        public Task<Supplier> GetSupplierByOGRN(ulong supplierOGRN) =>
+            _context.Suppliers.FirstOrDefaultAsync(x => x.OGRN == supplierOGRN);
+
+        /// <inheritdoc />
         public Task<List<Supplier>> GetSuppliers() =>
             _context.Suppliers.ToListAsync();
 

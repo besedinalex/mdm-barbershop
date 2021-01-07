@@ -45,7 +45,7 @@ namespace BarbershopMDM.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: false),
                     ContactNumber = table.Column<string>(nullable: false),
-                    OGRN = table.Column<int>(nullable: false)
+                    OGRN = table.Column<ulong>(nullable: false)
                 },
                 constraints: table =>
                 {

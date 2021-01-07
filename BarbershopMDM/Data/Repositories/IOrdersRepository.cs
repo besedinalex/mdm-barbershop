@@ -20,10 +20,15 @@ namespace BarbershopMDM.Data.Repositories
         /// <returns>Returns all orders.</returns>
         Task<List<Order>> GetOrders();
 
-        /// <summary>Get all employee orders.</summary>
-        /// <param name="employeeId">Id of the employee orders.</param>
+        /// <summary>Get all employee's orders.</summary>
+        /// <param name="employeeId">Id of the employee.</param>
         /// <returns>Returns all employee's orders.</returns>
         Task<List<Order>> GetEmployeeOrders(int employeeId);
+
+        /// <summary>Get all supplier orders.</summary>
+        /// <param name="supplierId">Id of the supplier.</param>
+        /// <returns>Returns all supplier's orders.</returns>
+        Task<List<Order>> GetSupplierOrders(int supplierId);
 
         /// <summary>Get all order contents with specified consumables.</summary>
         /// <param name="consumablesId">Id of the consumables.</param>
@@ -50,9 +55,5 @@ namespace BarbershopMDM.Data.Repositories
         /// <summary>Removes order and it's content.</summary>
         /// <param name="order">Order data.</param>
         Task RemoveOrder(Order order);
-
-        /// <summary>Removes order and it's content.</summary>
-        /// <param name="orderContent">Order content to remove.</param>
-        Task RemoveOrderContent(List<OrderContent> orderContent);
     }
 }

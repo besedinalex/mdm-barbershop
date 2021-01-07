@@ -40,8 +40,8 @@ namespace BarbershopMDM.Forms
             dataGridViewSuppliers.Columns[0].HeaderText = "ОГРН";
             dataGridViewSuppliers.Columns[1].HeaderText = "Наименование";
             dataGridViewSuppliers.Columns[2].HeaderText = "Телефон";
-            //dataGridViewSuppliers.Columns[0].Width = 50;
-            //dataGridViewSuppliers.Columns[2].Width = 50;
+            dataGridViewSuppliers.Columns[0].Width = 86;
+            dataGridViewSuppliers.Columns[2].Width = 100;
 
             numericUpDownORGN.Controls[0].Visible = false;
             numericUpDownORGN.Controls[1].Width -= 4;
@@ -65,10 +65,10 @@ namespace BarbershopMDM.Forms
         {
             var suppliers = await _suppliersRepository.GetSuppliers();
             dataGridViewSuppliers.Rows.Clear();
-            //dataGridViewSuppliers.Columns[1].Width = suppliers.Count > 4 ? 348 : 365;
+            dataGridViewSuppliers.Columns[1].Width = suppliers.Count > 4 ? 262 : 279;
             foreach (var supplier in suppliers)
             {
-                dataGridViewSuppliers.Rows.Add(new[] { supplier.Name, supplier.OGRN.ToString(), supplier.ContactNumber });
+                dataGridViewSuppliers.Rows.Add(new[] { supplier.OGRN.ToString(), supplier.Name, supplier.ContactNumber });
             }
             ClearDataGridViewSuppliersSelection();
         }
@@ -117,21 +117,25 @@ namespace BarbershopMDM.Forms
             return true;
         }
 
-        private bool VerifySupplierValues(out int ogrn, out string name, out string number)
+        private bool VerifySupplierValues(out ulong ogrn, out string name, out string number)
         {
-            ogrn = Convert.ToInt32(numericUpDownORGN.Value);
+            ogrn = Convert.ToUInt64(numericUpDownORGN.Value);
             name = textBoxSupplierName.Text;
             number = textBoxSupplierNumber.Text;
 
+            var numberRegex = new System.Text.RegularExpressions.Regex(@"^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$");
+
             var message = "";
-            // TODO: Verify data
+            message += ogrn < 1000000000000 ? "Поле \"ОГРН\" должно иметь 13 цифр.\n" : "";
+            message += name.Length < 3 ? "Поле \"Наименование\" должно содержать минимум 3 символа.\n" : "";
+            message += !numberRegex.IsMatch(number) ? "Поле \"Номер\" должно содержать валидный номер телефона, например, +7 (999) 999-99-99." : "";
 
             if (!message.Equals(""))
             {
                 MessageBox.Show(message, "Валидация данных о поставщике");
                 return false;
             }
-            return false;
+            return true;
         }
 
         private async void ButtonAddConsumables_Click(object sender, EventArgs e)
@@ -185,6 +189,58 @@ namespace BarbershopMDM.Forms
             ClearDataGridViewConsumablesSelection();
         }
 
+        private async void ButtonAddSupplier_Click(object sender, EventArgs e)
+        {
+            if (!VerifySupplierValues(out var orgn, out var name, out var number))
+            {
+                return;
+            }
+
+            var supplier = new Models.Supplier()
+            {
+                OGRN = orgn,
+                Name = name,
+                ContactNumber = number
+            };
+
+            await _suppliersRepository.CreateSupplier(supplier);
+            await UpdateDataGridViewSuppliers();
+        }
+
+        private async void ButtonEditSupplier_Click(object sender, EventArgs e)
+        {
+            if (!VerifySupplierValues(out var orgn, out var name, out var number))
+            {
+                return;
+            }
+
+            var supplier = await _suppliersRepository.GetSupplierByOGRN(orgn);
+            supplier.Name = name;
+            supplier.ContactNumber = number;
+
+            await _suppliersRepository.UpdateSupplier(supplier);
+            await UpdateDataGridViewSuppliers();
+        }
+
+        private async void ButtonRemoveSupplier_Click(object sender, EventArgs e)
+        {
+            var orgn = Convert.ToUInt64(numericUpDownORGN.Value);
+            var supplier = await _suppliersRepository.GetSupplierByOGRN(orgn);
+            var supplierOrders = await _ordersRepository.GetSupplierOrders(supplier.Id);
+            if (supplierOrders.Count > 0)
+            {
+                MessageBox.Show("Нельзя удалить поставщика, который числится в заказах.");
+                return;
+            }
+            await _suppliersRepository.RemoveSupplier(supplier);
+            await UpdateDataGridViewSuppliers();
+        }
+
+        private void ButtonCancelSupplier_Click(object sender, EventArgs e)
+        {
+            ClearDataGridViewSuppliersSelection();
+        }
+
         private void DataGridViewConsumables_SelectionChanged(object sender, EventArgs e)
         {
             var selectedRows = dataGridViewConsumables.SelectedRows;
@@ -213,11 +269,12 @@ namespace BarbershopMDM.Forms
             buttonAddSupplierToOrder.Enabled = supplierSelected;
             buttonEditSupplier.Enabled = supplierSelected;
             buttonRemoveSupplier.Enabled = supplierSelected;
+            numericUpDownORGN.Enabled = !supplierSelected;
 
             if (supplierSelected)
             {
                 var selectedRow = selectedRows[0];
-                numericUpDownORGN.Value = Convert.ToInt32(selectedRow.Cells[0].Value.ToString());
+                numericUpDownORGN.Value = Convert.ToUInt64(selectedRow.Cells[0].Value.ToString());
                 textBoxSupplierName.Text = selectedRow.Cells[1].Value.ToString();
                 textBoxSupplierNumber.Text = selectedRow.Cells[2].Value.ToString();
             }

@@ -11,7 +11,7 @@ namespace BarbershopMDM.Models
 
         [Required] public string ContactNumber { get; set; }
 
-        public int OGRN { get; set; }
+        public ulong OGRN { get; set; }
 
         public ICollection<Order> Orders { get; set; }
     }

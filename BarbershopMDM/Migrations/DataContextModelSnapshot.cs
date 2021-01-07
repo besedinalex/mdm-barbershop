@@ -144,7 +144,7 @@ namespace BarbershopMDM.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OGRN")
+                    b.Property<ulong>("OGRN")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

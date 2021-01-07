@@ -11,6 +11,11 @@ namespace BarbershopMDM.Data.Repositories
         /// <returns>Returns supplier.</returns>
         Task<Supplier> GetSupplier(int supplierId);
 
+        /// <summary>Gets supplier.</summary>
+        /// <param name="supplierOGRN">Supplier's ORGN.</param>
+        /// <returns>Returns supplier.</returns>
+        Task<Supplier> GetSupplierByOGRN(ulong supplierOGRN);
+
         /// <summary>Gets all suppliers.</summary>
         /// <returns>Returns all suppliers.</returns>
         Task<List<Supplier>> GetSuppliers();

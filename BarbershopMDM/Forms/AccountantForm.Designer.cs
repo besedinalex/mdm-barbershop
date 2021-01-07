@@ -31,8 +31,9 @@ namespace BarbershopMDM.Forms
         {
             this.dataGridViewConsumables = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownConsumablesAmount = new System.Windows.Forms.NumericUpDown();
+            this.buttonAddConsumablesToOrder = new System.Windows.Forms.Button();
             this.buttonRemoveConsumables = new System.Windows.Forms.Button();
+            this.numericUpDownConsumablesAmount = new System.Windows.Forms.NumericUpDown();
             this.buttonEditConsumables = new System.Windows.Forms.Button();
             this.buttonCancelConsumables = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,6 +45,7 @@ namespace BarbershopMDM.Forms
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonAddSupplierToOrder = new System.Windows.Forms.Button();
             this.numericUpDownORGN = new System.Windows.Forms.NumericUpDown();
             this.buttonRemoveSupplier = new System.Windows.Forms.Button();
             this.buttonEditSupplier = new System.Windows.Forms.Button();
@@ -55,8 +57,6 @@ namespace BarbershopMDM.Forms
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxSupplierName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.buttonAddConsumablesToOrder = new System.Windows.Forms.Button();
-            this.buttonAddSupplierToOrder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsumables)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownConsumablesAmount)).BeginInit();
@@ -102,6 +102,25 @@ namespace BarbershopMDM.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Расходные материалы";
             // 
+            // buttonAddConsumablesToOrder
+            // 
+            this.buttonAddConsumablesToOrder.Location = new System.Drawing.Point(87, 227);
+            this.buttonAddConsumablesToOrder.Name = "buttonAddConsumablesToOrder";
+            this.buttonAddConsumablesToOrder.Size = new System.Drawing.Size(107, 23);
+            this.buttonAddConsumablesToOrder.TabIndex = 19;
+            this.buttonAddConsumablesToOrder.Text = "Добавить в заказ";
+            this.buttonAddConsumablesToOrder.UseVisualStyleBackColor = true;
+            // 
+            // buttonRemoveConsumables
+            // 
+            this.buttonRemoveConsumables.Location = new System.Drawing.Point(281, 227);
+            this.buttonRemoveConsumables.Name = "buttonRemoveConsumables";
+            this.buttonRemoveConsumables.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemoveConsumables.TabIndex = 15;
+            this.buttonRemoveConsumables.Text = "Удалить";
+            this.buttonRemoveConsumables.UseVisualStyleBackColor = true;
+            this.buttonRemoveConsumables.Click += new System.EventHandler(this.ButtonRemoveConsumables_Click);
+            // 
             // numericUpDownConsumablesAmount
             // 
             this.numericUpDownConsumablesAmount.Location = new System.Drawing.Point(107, 201);
@@ -113,16 +132,6 @@ namespace BarbershopMDM.Forms
             this.numericUpDownConsumablesAmount.Name = "numericUpDownConsumablesAmount";
             this.numericUpDownConsumablesAmount.Size = new System.Drawing.Size(368, 20);
             this.numericUpDownConsumablesAmount.TabIndex = 18;
-            // 
-            // buttonRemoveConsumables
-            // 
-            this.buttonRemoveConsumables.Location = new System.Drawing.Point(281, 227);
-            this.buttonRemoveConsumables.Name = "buttonRemoveConsumables";
-            this.buttonRemoveConsumables.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemoveConsumables.TabIndex = 15;
-            this.buttonRemoveConsumables.Text = "Удалить";
-            this.buttonRemoveConsumables.UseVisualStyleBackColor = true;
-            this.buttonRemoveConsumables.Click += new System.EventHandler(this.ButtonRemoveConsumables_Click);
             // 
             // buttonEditConsumables
             // 
@@ -240,6 +249,15 @@ namespace BarbershopMDM.Forms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Поставщики";
             // 
+            // buttonAddSupplierToOrder
+            // 
+            this.buttonAddSupplierToOrder.Location = new System.Drawing.Point(87, 227);
+            this.buttonAddSupplierToOrder.Name = "buttonAddSupplierToOrder";
+            this.buttonAddSupplierToOrder.Size = new System.Drawing.Size(107, 23);
+            this.buttonAddSupplierToOrder.TabIndex = 20;
+            this.buttonAddSupplierToOrder.Text = "Указать в заказе";
+            this.buttonAddSupplierToOrder.UseVisualStyleBackColor = true;
+            // 
             // numericUpDownORGN
             // 
             this.numericUpDownORGN.Location = new System.Drawing.Point(95, 149);
@@ -260,6 +278,7 @@ namespace BarbershopMDM.Forms
             this.buttonRemoveSupplier.TabIndex = 15;
             this.buttonRemoveSupplier.Text = "Удалить";
             this.buttonRemoveSupplier.UseVisualStyleBackColor = true;
+            this.buttonRemoveSupplier.Click += new System.EventHandler(this.ButtonRemoveSupplier_Click);
             // 
             // buttonEditSupplier
             // 
@@ -269,6 +288,7 @@ namespace BarbershopMDM.Forms
             this.buttonEditSupplier.TabIndex = 16;
             this.buttonEditSupplier.Text = "Изменить";
             this.buttonEditSupplier.UseVisualStyleBackColor = true;
+            this.buttonEditSupplier.Click += new System.EventHandler(this.ButtonEditSupplier_Click);
             // 
             // buttonCancelSupplier
             // 
@@ -278,6 +298,7 @@ namespace BarbershopMDM.Forms
             this.buttonCancelSupplier.TabIndex = 17;
             this.buttonCancelSupplier.Text = "Отмена";
             this.buttonCancelSupplier.UseVisualStyleBackColor = true;
+            this.buttonCancelSupplier.Click += new System.EventHandler(this.ButtonCancelSupplier_Click);
             // 
             // label4
             // 
@@ -311,13 +332,13 @@ namespace BarbershopMDM.Forms
             this.buttonAddSupplier.TabIndex = 11;
             this.buttonAddSupplier.Text = "Добавить";
             this.buttonAddSupplier.UseVisualStyleBackColor = true;
+            this.buttonAddSupplier.Click += new System.EventHandler(this.ButtonAddSupplier_Click);
             // 
             // textBoxSupplierNumber
             // 
             this.textBoxSupplierNumber.Location = new System.Drawing.Point(95, 201);
             this.textBoxSupplierNumber.MaxLength = 56;
             this.textBoxSupplierNumber.Name = "textBoxSupplierNumber";
-            this.textBoxSupplierNumber.PasswordChar = '*';
             this.textBoxSupplierNumber.Size = new System.Drawing.Size(380, 20);
             this.textBoxSupplierNumber.TabIndex = 10;
             // 
@@ -333,7 +354,7 @@ namespace BarbershopMDM.Forms
             // textBoxSupplierName
             // 
             this.textBoxSupplierName.Location = new System.Drawing.Point(95, 175);
-            this.textBoxSupplierName.MaxLength = 20;
+            this.textBoxSupplierName.MaxLength = 200;
             this.textBoxSupplierName.Name = "textBoxSupplierName";
             this.textBoxSupplierName.Size = new System.Drawing.Size(380, 20);
             this.textBoxSupplierName.TabIndex = 8;
@@ -346,24 +367,6 @@ namespace BarbershopMDM.Forms
             this.label6.Size = new System.Drawing.Size(36, 13);
             this.label6.TabIndex = 7;
             this.label6.Text = "ОГРН";
-            // 
-            // buttonAddConsumablesToOrder
-            // 
-            this.buttonAddConsumablesToOrder.Location = new System.Drawing.Point(87, 227);
-            this.buttonAddConsumablesToOrder.Name = "buttonAddConsumablesToOrder";
-            this.buttonAddConsumablesToOrder.Size = new System.Drawing.Size(107, 23);
-            this.buttonAddConsumablesToOrder.TabIndex = 19;
-            this.buttonAddConsumablesToOrder.Text = "Добавить в заказ";
-            this.buttonAddConsumablesToOrder.UseVisualStyleBackColor = true;
-            // 
-            // buttonAddSupplierToOrder
-            // 
-            this.buttonAddSupplierToOrder.Location = new System.Drawing.Point(87, 227);
-            this.buttonAddSupplierToOrder.Name = "buttonAddSupplierToOrder";
-            this.buttonAddSupplierToOrder.Size = new System.Drawing.Size(107, 23);
-            this.buttonAddSupplierToOrder.TabIndex = 20;
-            this.buttonAddSupplierToOrder.Text = "Указать в заказе";
-            this.buttonAddSupplierToOrder.UseVisualStyleBackColor = true;
             // 
             // AccountantForm
             // 

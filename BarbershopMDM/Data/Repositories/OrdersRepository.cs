@@ -32,6 +32,10 @@ namespace BarbershopMDM.Data.Repositories
             _context.Orders.Where(x => x.EmployeeId == employeeId).ToListAsync();
 
         /// <inheritdoc />
+        public Task<List<Order>> GetSupplierOrders(int supplierId) =>
+            _context.Orders.Where(x => x.SupplierId == supplierId).ToListAsync();
+
+        /// <inheritdoc />
         public Task<List<OrderContent>> GetOrderContentsWithConsumables(int consumablesId) =>
             _context.OrderContents.Where(x => x.ConsumablesId == consumablesId).ToListAsync();
 
@@ -71,13 +75,6 @@ namespace BarbershopMDM.Data.Repositories
             _context.OrderContents.RemoveRange(orderContent);
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
-        }
-
-        /// <inheritdoc />
-        public Task RemoveOrderContent(List<OrderContent> orderContent)
-        {
-            _context.OrderContents.RemoveRange(orderContent);
-            return _context.SaveChangesAsync();
         }
     }
 }

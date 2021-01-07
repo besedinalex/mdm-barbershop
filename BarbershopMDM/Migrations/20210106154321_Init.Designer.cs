@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarbershopMDM.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201226143545_Init")]
+    [Migration("20210106154321_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,7 +146,7 @@ namespace BarbershopMDM.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OGRN")
+                    b.Property<ulong>("OGRN")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarbershopMDM.Data
 {
-    class DataContext: DbContext
+    public class DataContext: DbContext
     {
         public DbSet<Employee> Employees { get; set; }
 

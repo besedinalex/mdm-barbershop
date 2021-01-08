@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BarbershopMDM.Data.Repositories
 {
-    interface IConsumablesRepository
+    public interface IConsumablesRepository
     {
         /// <summary>Gets consumable item.</summary>
         /// <param name="consumableId">Id of the consumable item.</param>

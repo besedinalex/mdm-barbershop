@@ -4,7 +4,7 @@ using BarbershopMDM.Models;
 
 namespace BarbershopMDM.Data.Repositories
 {
-    interface IOrdersRepository
+    public interface IOrdersRepository
     {
         /// <summary>Gets order.</summary>
         /// <param name="orderId">Id of the order.</param>

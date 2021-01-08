@@ -5,7 +5,7 @@ using BarbershopMDM.Models;
 
 namespace BarbershopMDM.Data.Repositories
 {
-    class ConsumablesRepository : IConsumablesRepository
+    public class ConsumablesRepository : IConsumablesRepository
     {
         private readonly DataContext _context;
 

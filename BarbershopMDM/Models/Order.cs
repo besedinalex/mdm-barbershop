@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BarbershopMDM.Models
 {
-    class Order
+    public class Order
     {
         public int Id { get; set; }
 

@@ -12,6 +12,7 @@ namespace BarbershopMDM
     {
         public static IServiceProvider ServiceProvider { get; set; }
         public static Form LoginForm { get; set; }
+        public static int UserId { get; set; }
 
         [STAThread]
         static void Main()

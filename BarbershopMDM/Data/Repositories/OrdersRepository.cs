@@ -6,7 +6,7 @@ using BarbershopMDM.Models;
 
 namespace BarbershopMDM.Data.Repositories
 {
-    class OrdersRepository : IOrdersRepository
+    public class OrdersRepository : IOrdersRepository
     {
         private readonly DataContext _context;
 

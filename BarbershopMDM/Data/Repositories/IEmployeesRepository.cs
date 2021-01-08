@@ -4,7 +4,7 @@ using BarbershopMDM.Models;
 
 namespace BarbershopMDM.Data.Repositories
 {
-    interface IEmployeesRepository
+    public interface IEmployeesRepository
     {
         /// <summary>Gets employee.</summary>
         /// <param name="employeeId">Id of the employee.</param>

@@ -1,31 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BarbershopMDM.Models;
 using BarbershopMDM.Data.Repositories;
 
-namespace BarbershopMDM.Forms
+namespace BarbershopMDM.Forms.EmployeesForms
 {
-    public partial class ManagerForm : Form
+    public partial class EmployeeForm : Form
     {
-        private readonly int _currentUserId;
-        private readonly IConsumablesRepository _consumablesRepository;
-        private readonly ISuppliersRepository _suppliersRepository;
-        private readonly IEmployeesRepository _employeesRepository;
-        private readonly IOrdersRepository _ordersRepository;
+        protected IConsumablesRepository _consumablesRepository;
+        protected ISuppliersRepository _suppliersRepository;
+        protected IEmployeesRepository _employeesRepository;
+        protected IOrdersRepository _ordersRepository;
 
-        private List<Consumables> ChosenConsumables { get; set; }
+        protected List<Consumables> ChosenConsumables { get; set; }
 
-        public ManagerForm(int userId)
+        public EmployeeForm()
         {
-            _currentUserId = userId;
-            _consumablesRepository = (IConsumablesRepository)Program.ServiceProvider.GetService(typeof(IConsumablesRepository));
-            _suppliersRepository = (ISuppliersRepository)Program.ServiceProvider.GetService(typeof(ISuppliersRepository));
-            _employeesRepository = (IEmployeesRepository)Program.ServiceProvider.GetService(typeof(IEmployeesRepository));
-            _ordersRepository = (IOrdersRepository)Program.ServiceProvider.GetService(typeof(IOrdersRepository));
-
             ChosenConsumables = new List<Consumables>();
 
             InitializeComponent();
@@ -83,7 +75,7 @@ namespace BarbershopMDM.Forms
             dataGridViewOrders.Columns[6].Width = 100;
         }
 
-        private async Task UpdateDataGridViewConsumables()
+        protected async Task UpdateDataGridViewConsumables()
         {
             var consumables = await _consumablesRepository.GetConsumables();
             dataGridViewConsumables.Rows.Clear();
@@ -100,7 +92,7 @@ namespace BarbershopMDM.Forms
             ClearDataGridViewConsumablesSelection();
         }
 
-        private async Task UpdateDataGridViewSuppliers()
+        protected async Task UpdateDataGridViewSuppliers()
         {
             var suppliers = await _suppliersRepository.GetSuppliers();
             dataGridViewSuppliers.Rows.Clear();
@@ -117,7 +109,7 @@ namespace BarbershopMDM.Forms
             ClearDataGridViewSuppliersSelection();
         }
 
-        private async Task UpdateDataGridViewOrders()
+        protected async Task UpdateDataGridViewOrders()
         {
             var orders = await _ordersRepository.GetOrders();
             dataGridViewOrders.Rows.Clear();
@@ -146,7 +138,7 @@ namespace BarbershopMDM.Forms
             ClearDataGridViewOrdersSelection();
         }
 
-        private void UpdateDataGridViewOrderConsumables()
+        protected void UpdateDataGridViewOrderConsumables()
         {
             dataGridViewOrderConsumables.Rows.Clear();
             dataGridViewOrderConsumables.Columns[1].Width = ChosenConsumables.Count > 4 ? 342 : 359;
@@ -162,49 +154,49 @@ namespace BarbershopMDM.Forms
             ClearDataGridViewOrderConsumablesSelection();
         }
 
-        private void ClearDataGridViewConsumablesSelection()
+        protected void ClearDataGridViewConsumablesSelection()
         {
             dataGridViewConsumables.ClearSelection();
             dataGridViewConsumables.CurrentCell = null;
             ClearConsumablesValues();
         }
 
-        private void ClearDataGridViewSuppliersSelection()
+        protected void ClearDataGridViewSuppliersSelection()
         {
             dataGridViewSuppliers.ClearSelection();
             dataGridViewSuppliers.CurrentCell = null;
             ClearSuppliersValues();
         }
 
-        private void ClearDataGridViewOrdersSelection()
+        protected void ClearDataGridViewOrdersSelection()
         {
             dataGridViewOrders.ClearSelection();
             dataGridViewOrders.CurrentCell = null;
             ClearOrdersValues();
         }
 
-        private void ClearDataGridViewOrderConsumablesSelection()
+        protected void ClearDataGridViewOrderConsumablesSelection()
         {
             dataGridViewOrderConsumables.ClearSelection();
             dataGridViewOrderConsumables.CurrentCell = null;
             ClearOrderConsumablesValues();
         }
 
-        private void ClearConsumablesValues()
+        protected void ClearConsumablesValues()
         {
             textBoxConsumablesId.Text = "";
             textBoxConsumablesName.Text = "";
             numericUpDownConsumablesAmount.Value = 0;
         }
 
-        private void ClearSuppliersValues()
+        protected void ClearSuppliersValues()
         {
             numericUpDownORGN.Value = 0;
             textBoxSupplierName.Text = "";
             textBoxSupplierNumber.Text = "";
         }
 
-        private void ClearOrdersValues()
+        virtual protected void ClearOrdersValues()
         {
             textBoxOrderId.Text = "";
             textBoxOrderSupplier.Text = "";
@@ -218,74 +210,37 @@ namespace BarbershopMDM.Forms
             UpdateDataGridViewOrderConsumables();
         }
 
-        private void ClearOrderConsumablesValues()
+        protected void ClearOrderConsumablesValues()
         {
             textBoxOrderConsumablesId.Text = "";
             textBoxOrderConsumablesName.Text = "";
             numericUpDownOrderConsumablesAmount.Value = 0;
         }
 
-        private async void ButtonEditConsumables_Click(object sender, EventArgs e)
-        {
-            var consumable = await _consumablesRepository.GetConsumable(Convert.ToInt32(textBoxConsumablesId.Text));
-            consumable.CurrentAmount = Convert.ToInt32(numericUpDownConsumablesAmount.Value);
-
-            await _consumablesRepository.UpdateConsumable(consumable);
-            await UpdateDataGridViewConsumables();
-        }
-
-        private void ButtonCancelConsumables_Click(object sender, EventArgs e)
+        protected void ButtonCancelConsumables_Click(object sender, EventArgs e)
         {
             ClearDataGridViewConsumablesSelection();
         }
 
-        private void ButtonCancelSupplier_Click(object sender, EventArgs e)
+        protected void ButtonCancelSupplier_Click(object sender, EventArgs e)
         {
             ClearDataGridViewSuppliersSelection();
         }
 
-        private void ButtonCancelOrderConsumables_Click(object sender, EventArgs e)
+        protected void ButtonCancelOrderConsumables_Click(object sender, EventArgs e)
         {
             ClearDataGridViewOrderConsumablesSelection();
         }
 
-        private async void ButtonFinishOrder_Click(object sender, EventArgs e)
-        {
-            var message = "Вы уверены, что сейчас хотите завершить заказ?\nОн перестанет быть доступен для последующих изменений.";
-            var confirm = MessageBox.Show(message, "Подтверждение принятия заказа", MessageBoxButtons.YesNo);
-
-            if (confirm != DialogResult.Yes)
-            {
-                return;
-            }
-
-            var order = await _ordersRepository.GetOrder(Convert.ToInt32(textBoxOrderId.Text));
-            order.FinisherId = _currentUserId;
-            order.TimeCompleted = DateTime.Now;
-            await _ordersRepository.UpdateOrder(order);
-
-            var consumables = await _consumablesRepository.GetConsumables();
-            var orderContent = await _ordersRepository.GetOrdersContent(order.Id);
-            orderContent.ForEach(x => consumables.FirstOrDefault(y => x.ConsumablesId == y.Id).CurrentAmount += x.ConsumablesAmount);
-            await _consumablesRepository.UpdateConsumables(consumables);
-            await UpdateDataGridViewOrders();
-            await UpdateDataGridViewConsumables();
-        }
-
-        private void ButtonCancelOrder_Click(object sender, EventArgs e)
+        protected void ButtonCancelOrder_Click(object sender, EventArgs e)
         {
             ClearDataGridViewOrdersSelection();
         }
 
-        private void DataGridViewConsumables_SelectionChanged(object sender, EventArgs e)
+        virtual protected void DataGridViewConsumables_SelectionChanged(object sender, EventArgs e)
         {
             var selectedRows = dataGridViewConsumables.SelectedRows;
-
-            var consumablesSelected = selectedRows.Count > 0;
-            buttonEditConsumables.Enabled = consumablesSelected;
-            numericUpDownConsumablesAmount.ReadOnly = !consumablesSelected;
-
-            if (consumablesSelected)
+            if (selectedRows.Count > 0)
             {
                 var selectedRow = selectedRows[0];
                 textBoxConsumablesId.Text = selectedRow.Cells[0].Value.ToString();
@@ -294,13 +249,10 @@ namespace BarbershopMDM.Forms
             }
         }
 
-        private void DataGridViewSuppliers_SelectionChanged(object sender, EventArgs e)
+        virtual protected void DataGridViewSuppliers_SelectionChanged(object sender, EventArgs e)
         {
             var selectedRows = dataGridViewSuppliers.SelectedRows;
-
-            var supplierSelected = selectedRows.Count > 0;
-
-            if (supplierSelected)
+            if (selectedRows.Count > 0)
             {
                 var selectedRow = selectedRows[0];
                 numericUpDownORGN.Value = Convert.ToUInt64(selectedRow.Cells[0].Value.ToString());
@@ -309,15 +261,10 @@ namespace BarbershopMDM.Forms
             }
         }
 
-        private async void DataGridViewOrders_SelectionChanged(object sender, EventArgs e)
+        virtual protected void DataGridViewOrders_SelectionChanged(object sender, EventArgs e)
         {
-            ChosenConsumables.Clear();
-
             var selectedRows = dataGridViewOrders.SelectedRows;
-
-            var orderSelected = selectedRows.Count > 0;
-
-            if (orderSelected)
+            if (selectedRows.Count > 0)
             {
                 var selectedRow = selectedRows[0];
                 textBoxOrderId.Text = selectedRow.Cells[0].Value.ToString();
@@ -327,33 +274,13 @@ namespace BarbershopMDM.Forms
                 textBoxOrderTimeOrdered.Text = selectedRow.Cells[4].Value.ToString();
                 textBoxOrderFinisher.Text = selectedRow.Cells[5].Value.ToString();
                 textBoxOrderTimeCompleted.Text = selectedRow.Cells[6].Value.ToString();
-
-                var selectedOrderId = Convert.ToInt32(textBoxOrderId.Text);
-                var orderContent = await _ordersRepository.GetOrdersContent(selectedOrderId);
-                orderContent.ForEach(async x =>
-                {
-                    var consumable = new Consumables()
-                    {
-                        Id = x.ConsumablesId,
-                        Name = (await _consumablesRepository.GetConsumable(x.ConsumablesId)).Name,
-                        CurrentAmount = x.ConsumablesAmount
-                    };
-                    ChosenConsumables.Add(consumable);
-                });
             }
-
-            buttonFinishOrder.Enabled = orderSelected && textBoxOrderFinisher.Text.Equals("");
-
-            UpdateDataGridViewOrderConsumables();
         }
 
-        private void DataGridViewOrderConsumables_SelectionChanged(object sender, EventArgs e)
+        virtual protected void DataGridViewOrderConsumables_SelectionChanged(object sender, EventArgs e)
         {
             var selectedRows = dataGridViewOrderConsumables.SelectedRows;
-
-            var orderConsumablesSelected = selectedRows.Count > 0;
-
-            if (orderConsumablesSelected)
+            if (selectedRows.Count > 0)
             {
                 var selectedRow = selectedRows[0];
                 textBoxOrderConsumablesId.Text = selectedRow.Cells[0].Value.ToString();
@@ -362,19 +289,7 @@ namespace BarbershopMDM.Forms
             }
         }
 
-        private async void ManagerForm_Shown(object sender, EventArgs e)
-        {
-            await UpdateDataGridViewConsumables();
-            await UpdateDataGridViewSuppliers();
-            await UpdateDataGridViewOrders();
-            UpdateDataGridViewOrderConsumables();
-            DataGridViewConsumables_SelectionChanged(sender, e);
-            DataGridViewSuppliers_SelectionChanged(sender, e);
-            DataGridViewOrders_SelectionChanged(sender, e);
-            DataGridViewOrderConsumables_SelectionChanged(sender, e);
-        }
-
-        private void ManagerForm_FormClosed(object sender, FormClosedEventArgs e)
+        protected void AccountantForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.LoginForm.Show();
         }

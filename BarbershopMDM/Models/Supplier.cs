@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BarbershopMDM.Models
 {
-    class Supplier
+    public class Supplier
     {
         public int Id { get; set; }
 

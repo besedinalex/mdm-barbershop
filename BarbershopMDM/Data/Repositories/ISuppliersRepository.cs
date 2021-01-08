@@ -4,7 +4,7 @@ using BarbershopMDM.Models;
 
 namespace BarbershopMDM.Data.Repositories
 {
-    interface ISuppliersRepository
+    public interface ISuppliersRepository
     {
         /// <summary>Gets supplier.</summary>
         /// <param name="supplierId">Id of the supplier.</param>

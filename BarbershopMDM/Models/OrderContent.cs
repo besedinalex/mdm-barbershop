@@ -1,6 +1,6 @@
 ﻿namespace BarbershopMDM.Models
 {
-    class OrderContent
+    public class OrderContent
     {
         public int Id { get; set; }
 

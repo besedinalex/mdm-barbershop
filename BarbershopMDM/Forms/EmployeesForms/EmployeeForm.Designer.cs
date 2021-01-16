@@ -127,8 +127,8 @@ namespace BarbershopMDM.Forms.EmployeesForms
             // 
             this.numericUpDownConsumablesAmount.Location = new System.Drawing.Point(107, 201);
             this.numericUpDownConsumablesAmount.Maximum = new decimal(new int[] {
-            1316134911,
-            2328,
+            2147483647,
+            0,
             0,
             0});
             this.numericUpDownConsumablesAmount.Name = "numericUpDownConsumablesAmount";
@@ -240,8 +240,8 @@ namespace BarbershopMDM.Forms.EmployeesForms
             // 
             this.numericUpDownOrderCost.Location = new System.Drawing.Point(119, 71);
             this.numericUpDownOrderCost.Maximum = new decimal(new int[] {
-            1316134911,
-            2328,
+            2147483647,
+            0,
             0,
             0});
             this.numericUpDownOrderCost.Name = "numericUpDownOrderCost";
@@ -396,8 +396,8 @@ namespace BarbershopMDM.Forms.EmployeesForms
             // 
             this.numericUpDownOrderConsumablesAmount.Location = new System.Drawing.Point(101, 201);
             this.numericUpDownOrderConsumablesAmount.Maximum = new decimal(new int[] {
-            1316134911,
-            2328,
+            2147483647,
+            0,
             0,
             0});
             this.numericUpDownOrderConsumablesAmount.Name = "numericUpDownOrderConsumablesAmount";

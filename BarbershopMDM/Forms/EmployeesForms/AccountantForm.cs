@@ -35,22 +35,6 @@ namespace BarbershopMDM.Forms.EmployeesForms
             textBoxOrderTimeOrdered.Text = DateTime.Now.Date.ToShortDateString();
         }
 
-        private bool VerifyConsumablesValues(out string name, out int amount)
-        {
-            name = textBoxConsumablesName.Text;
-            amount = Convert.ToInt32(numericUpDownConsumablesAmount.Value);
-
-            var message = "";
-            message += name.Length < 2 ? "Поле \"Наименование\" должно содержать минимум 2 символа." : "";
-
-            if (!message.Equals(""))
-            {
-                MessageBox.Show(message, "Валидация данных о расходных материалах");
-                return false;
-            }
-            return true;
-        }
-
         private bool VerifySupplierValues(out ulong ogrn, out string name, out string number)
         {
             ogrn = Convert.ToUInt64(numericUpDownORGN.Value);
@@ -93,8 +77,12 @@ namespace BarbershopMDM.Forms.EmployeesForms
 
         private async void ButtonAddConsumables_Click(object sender, EventArgs e)
         {
-            if (!VerifyConsumablesValues(out var name, out var amount))
+            var name = textBoxConsumablesName.Text;
+            var amount = Convert.ToInt32(numericUpDownConsumablesAmount.Value);
+
+            if (name.Length < 2)
             {
+                MessageBox.Show("Поле \"Наименование\" должно содержать минимум 2 символа.", "Валидация данных о расходных материалах");
                 return;
             }
 
@@ -110,14 +98,8 @@ namespace BarbershopMDM.Forms.EmployeesForms
 
         private async void ButtonEditConsumables_Click(object sender, EventArgs e)
         {
-            if (!VerifyConsumablesValues(out var name, out var amount))
-            {
-                return;
-            }
-
             var consumable = await _consumablesRepository.GetConsumable(Convert.ToInt32(textBoxConsumablesId.Text));
-            consumable.Name = name;
-            consumable.CurrentAmount = amount;
+            consumable.CurrentAmount = Convert.ToInt32(numericUpDownConsumablesAmount.Value);
 
             await _consumablesRepository.UpdateConsumable(consumable);
             await UpdateDataGridViewConsumables();
@@ -132,6 +114,15 @@ namespace BarbershopMDM.Forms.EmployeesForms
                 MessageBox.Show("Нельзя удалить материалы, указанные в заказах.");
                 return;
             }
+
+            var confirm = MessageBox.Show("Вы уверены, что хотите удалить расходный материал?",
+                "Подтверждение удаления расходного материала", MessageBoxButtons.YesNo);
+
+            if (confirm != DialogResult.Yes)
+            {
+                return;
+            }
+
             var consumable = await _consumablesRepository.GetConsumable(consumablesId);
             await _consumablesRepository.RemoveConsumable(consumable);
             await UpdateDataGridViewConsumables();
@@ -187,6 +178,15 @@ namespace BarbershopMDM.Forms.EmployeesForms
                 MessageBox.Show("Нельзя удалить поставщика, который числится в заказах.");
                 return;
             }
+
+            var confirm = MessageBox.Show("Вы уверены, что хотите удалить поставщика?", "Подтверждение удаления поставщика",
+                MessageBoxButtons.YesNo);
+
+            if (confirm != DialogResult.Yes)
+            {
+                return;
+            }
+
             await _suppliersRepository.RemoveSupplier(supplier);
             await UpdateDataGridViewSuppliers();
         }
@@ -265,8 +265,8 @@ namespace BarbershopMDM.Forms.EmployeesForms
 
         private async void ButtonAbortOrder_Click(object sender, EventArgs e)
         {
-            var message = "Вы уверены, что хотите отменить заказ?";
-            var confirm = MessageBox.Show(message, "Подтверждение отмены заказа", MessageBoxButtons.YesNo);
+            var confirm =
+                MessageBox.Show("Вы уверены, что хотите отменить заказ?", "Подтверждение отмены заказа", MessageBoxButtons.YesNo);
 
             if (confirm != DialogResult.Yes)
             {
@@ -287,6 +287,7 @@ namespace BarbershopMDM.Forms.EmployeesForms
             buttonAddConsumablesToOrder.Enabled = consumablesSelected && SelectedOrderId == 0;
             buttonEditConsumables.Enabled = consumablesSelected;
             buttonRemoveConsumables.Enabled = consumablesSelected;
+            textBoxConsumablesName.ReadOnly = consumablesSelected;
         }
 
         override protected void DataGridViewSuppliers_SelectionChanged(object sender, EventArgs e)
@@ -342,7 +343,7 @@ namespace BarbershopMDM.Forms.EmployeesForms
             var orderConsumablesSelected = dataGridViewOrderConsumables.SelectedRows.Count > 0;
             buttonUpdateOrderConsumables.Enabled = orderConsumablesSelected && SelectedOrderId == 0;
             buttonRemoveOrderConsumables.Enabled = orderConsumablesSelected && SelectedOrderId == 0;
-            numericUpDownOrderConsumablesAmount.Enabled = orderConsumablesSelected && SelectedOrderId == 0;
+            numericUpDownOrderConsumablesAmount.ReadOnly = orderConsumablesSelected && SelectedOrderId == 0;
         }
 
         private async void AccountantForm_Shown(object sender, EventArgs e)

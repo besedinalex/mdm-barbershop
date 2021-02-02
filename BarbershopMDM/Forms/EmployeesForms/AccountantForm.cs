@@ -329,6 +329,7 @@ namespace BarbershopMDM.Forms.EmployeesForms
             buttonCreateOrder.Enabled = !orderSelected;
             buttonAbortOrder.Enabled = orderSelected && textBoxOrderFinisher.Text.Equals("");
             numericUpDownOrderCost.ReadOnly = orderSelected;
+            numericUpDownOrderConsumablesAmount.ReadOnly = orderSelected;
 
             UpdateDataGridViewOrderConsumables();
 
@@ -343,7 +344,6 @@ namespace BarbershopMDM.Forms.EmployeesForms
             var orderConsumablesSelected = dataGridViewOrderConsumables.SelectedRows.Count > 0;
             buttonUpdateOrderConsumables.Enabled = orderConsumablesSelected && SelectedOrderId == 0;
             buttonRemoveOrderConsumables.Enabled = orderConsumablesSelected && SelectedOrderId == 0;
-            numericUpDownOrderConsumablesAmount.ReadOnly = orderConsumablesSelected && SelectedOrderId == 0;
         }
 
         private async void AccountantForm_Shown(object sender, EventArgs e)
